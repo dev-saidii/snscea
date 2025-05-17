@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import Swal from 'sweetalert2';
 
 const RegisterForm = () => {
+    const [loading, setLoading] = useState(false)
     const [form, setForm] = useState({
         name: '',
         email: '',
@@ -28,10 +29,11 @@ const RegisterForm = () => {
                 Swal.fire('Error', 'Please fill all required fields.', 'error');
                 return;
             }
+            setLoading(true)
 
             const res = await registerUserService(form);
 
-            Swal.fire('Success', res.message || `User Registered Successfully! \n Employee Id: ${res.data.employeeNumber} \n Password : ${form.password}`, 'success');
+            Swal.fire('User Registered Successfully! ', res.message || `\n Employee Id: ${res.user.employeeNumber} \n Password : ${form.password}`, 'success');
             setForm({
                 name: '',
                 email: '',
@@ -47,6 +49,8 @@ const RegisterForm = () => {
                 'Something went wrong.',
                 'error'
             );
+        } finally {
+            setLoading(false)
         }
     };
 
@@ -110,10 +114,12 @@ const RegisterForm = () => {
 
                 <PhotoUpload setPhoto={(val: string) => setForm({ ...form, photo: val })} photo={form.photo} />
                 <button
+                    disabled={loading}
                     type="submit"
                     className="bg-blue-600 cursor-pointer text-white p-2 rounded hover:bg-blue-700 transition"
                 >
-                    Register
+                    {loading ? "registering..." : "Register"}
+
                 </button>
             </div>
         </form>

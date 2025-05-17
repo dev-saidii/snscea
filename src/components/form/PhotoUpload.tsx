@@ -73,6 +73,8 @@ export default function PhotoUpload({
                         <Image
                             src={photo}
                             alt="Preview"
+                            width={64}
+                            height={64}
                             className="w-16 h-16 rounded-lg object-cover border border-gray-300 dark:border-gray-600"
                         />
                         <button

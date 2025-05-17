@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
 import { connectDB } from '@/lib/db';
 import { generateEmployeeId } from '@/lib/idGenerator';
-import { sendEmail } from '@/utils/sendEmail';
+import { sendEmail } from '@/lib/sendEmail';
 
 const roleAccessMap = {
     superadmin: ['student', 'account', 'marksheet', 'setting'],
