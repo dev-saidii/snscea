@@ -1,6 +1,6 @@
 "use client";
 
-import { changePassword } from "@/services/auth";
+import { changePassword, logout } from "@/services/auth";
 import { AxiosError } from "axios";
 import { ArrowLeft, Home } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -38,6 +38,7 @@ export default function ChangePasswordPage() {
                 setCurrentPassword("");
                 setNewPassword("");
                 setConfirmPassword("");
+                logout();
             }
         } catch (error: unknown) {
             const axiosError = error as AxiosError;
@@ -76,7 +77,7 @@ export default function ChangePasswordPage() {
                 onClick={() => router.push('/dashboard')}
                 className="fixed z-40 cursor-pointer flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-[#22384a] text-[#205D80] dark:text-white shadow hover:bg-[#eaf6fb] dark:hover:bg-[#2a4660] transition"
                 style={{
-                    top: TOPBAR_HEIGHT + 16, // 16px gap below TopBar
+                    top: TOPBAR_HEIGHT + 16,
                     right: 24,
                 }}
             >

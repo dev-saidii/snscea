@@ -1,9 +1,10 @@
 // src/app/api/users/[id]/route.ts
 import { connectDB } from '@/lib/db';
+import { authenticate, authenticateModuleAccess } from '@/middlewares/moduleAuth';
 import User from '@/models/user.model';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(req: NextRequest,{ params}) {
+export async function GET(req: NextRequest, { params }) {
     try {
         await connectDB();
 
@@ -21,7 +22,7 @@ export async function GET(req: NextRequest,{ params}) {
 }
 
 
-export async function PUT(req: NextRequest,{ params, request }) {
+export async function PUT(req: NextRequest, { params, request }) {
     try {
         await connectDB();
 
@@ -50,6 +51,29 @@ export async function DELETE(
     try {
         await connectDB();
         const { id } = params;
+
+        const loggedInUser = await authenticateModuleAccess(request, 'setting');
+
+        if (!loggedInUser) {
+            return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
+        }
+
+
+        // Don't allow deleting self
+        if (loggedInUser.userId === id) {
+            return NextResponse.json({
+                success: false,
+                message: "You can't delete your own account.",
+            }, { status: 400 });
+        }
+
+        // Don't allow deleting self
+        if (loggedInUser.userId === process.env.DEVELOPER_USERID) {
+            return NextResponse.json({
+                success: false,
+                message: "You can't delete developer account.",
+            }, { status: 400 });
+        }
 
         const user = await User.findByIdAndDelete(id);
 

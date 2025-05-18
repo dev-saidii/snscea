@@ -78,9 +78,11 @@ const RegisterForm = () => {
                     name="mobile"
                     value={form.mobile}
                     onChange={handleChange}
-                    placeholder="Mobile"
+                    placeholder="Mobile"    
                     className="border border-blue-200 p-2 rounded"
                     required
+                    min={10}
+                    max={10}
                 />
 
                 <input

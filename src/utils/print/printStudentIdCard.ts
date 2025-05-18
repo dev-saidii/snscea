@@ -149,7 +149,7 @@ const printHtmlContent = (title: string, content: string, isMultiple: boolean = 
 
   printWindow.document.close();
   printWindow.focus();
-  printWindow.print();
+  // printWindow.print();
 };
 
 // Main export functions

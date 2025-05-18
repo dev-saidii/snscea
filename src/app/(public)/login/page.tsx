@@ -38,11 +38,11 @@ export default function LoginPage() {
 
     return (
         <main className="min-h-screen mt-10 py-10 flex items-center justify-center bg-gradient-to-br from-blue-100 via-green-50 to-blue-100 dark:from-gray-900 dark:to-gray-800 px-4">
-            <div className="max-w-lg w-full  dark:bg-gray-900 bg-white shadow rounded-md p-8 space-y-7 border border-blue-200 dark:border-gray-800 relative overflow-hidden">
+            <div className="max-w-lg w-full  dark:bg-gray-900  shadow-md rounded-md p-8 space-y-7 border border-blue-200 dark:border-gray-800 relative overflow-hidden">
                 <div className="text-center relative z-10">
                     <div className="mx-auto mb-3 rounded-full flex items-center justify-center">
                         <Image
-                            src="/logo.png"
+                            src="/logo-bgrm.png"
                             alt={"institute logo"}
                             width={150}
                             height={150}

@@ -57,8 +57,8 @@ const StudentsPage = () => {
 
         if (savedFilters) {
             setFilters(JSON.parse(savedFilters));
+            fetchStudents();
         }
-        fetchStudents();
 
         // Optionally clear after restore
         sessionStorage.removeItem("studentFilters");

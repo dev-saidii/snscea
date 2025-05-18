@@ -48,11 +48,11 @@ export default function Home() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: "easeOut" }}
-          className="relative z-10 max-w-5xl"
+          className="relative z-10 max-w-7xl"
         >
           <h1 className="text-5xl md:text-6xl font-extrabold leading-tight text-blue-900 mb-6 tracking-tight">
-            <span className="bg-gradient-to-r from-blue-600 to-indigo-700 bg-clip-text text-transparent">
-              Sri NetaJi Subhash Chandra
+            <span className="bg-gradient-to-r uppercase from-blue-600 to-indigo-700 bg-clip-text text-transparent">
+              Sri Neta Ji Subhash Chandra
             </span>
             <br />
             <span className="block text-3xl md:text-5xl font-semibold mt-3 tracking-wide">
@@ -61,7 +61,7 @@ export default function Home() {
           </h1>
 
           <motion.p
-            className="text-lg md:text-xl font-medium text-blue-700 max-w-xl mx-auto leading-relaxed"
+            className="text-md md:text-lg font-medium text-blue-700 max-w-xl mx-auto leading-relaxed"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}

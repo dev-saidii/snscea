@@ -142,5 +142,5 @@ export const printOnLetterPad = (htmlContent: string) => {
 
   win.document.close();
   win.focus();
-  win.print();
+  // win.print();
 };

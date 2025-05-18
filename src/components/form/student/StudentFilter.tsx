@@ -52,6 +52,22 @@ const StudentFilter = ({ filters, setFilters, onSearch, isSearching }: Props) =>
                     </div>
                 </div>
 
+                {/* Session */}
+                <div className="flex flex-col">
+                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Session</label>
+                    <select
+                        name="session"
+                        className="text-sm rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-[#13222f] text-gray-900 dark:text-white px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500 w-36"
+                        value={filters?.session}
+                        onChange={handleChange}
+                    >
+                        <option value="">All</option>
+                        {sessions.map((session) => (
+                            <option key={session} value={session}>{session}</option>
+                        ))}
+                    </select>
+                </div>
+
                 {/* Class */}
                 <div className="flex flex-col">
                     <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Class</label>
@@ -84,21 +100,7 @@ const StudentFilter = ({ filters, setFilters, onSearch, isSearching }: Props) =>
                     </select>
                 </div>
 
-                {/* Session */}
-                <div className="flex flex-col">
-                    <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Session</label>
-                    <select
-                        name="session"
-                        className="text-sm rounded-md border border-gray-300 dark:border-gray-600 bg-white dark:bg-[#13222f] text-gray-900 dark:text-white px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-500 w-36"
-                        value={filters?.session}
-                        onChange={handleChange}
-                    >
-                        <option value="">All</option>
-                        {sessions.map((session) => (
-                            <option key={session} value={session}>{session}</option>
-                        ))}
-                    </select>
-                </div>
+
 
                 {/* Gender */}
                 <div className="flex flex-col">

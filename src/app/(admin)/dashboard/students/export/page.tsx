@@ -34,7 +34,7 @@ export default function ExportPage() {
 
     const handleSearch = () => {
         if (!filters.session) return toast.error("Please Select Session")
-        if (!filters.currentClass) return toast.error("Please Select Class")
+        // if (!filters.currentClass) return toast.error("Please Select Class")
 
         fetchStudents();
     }
@@ -44,7 +44,7 @@ export default function ExportPage() {
         const worksheet = XLSXUtils.json_to_sheet(data);
         const workbook = XLSXUtils.book_new();
         XLSXUtils.book_append_sheet(workbook, worksheet, 'Students');
-        writeFile(workbook, `${filters.session}-${filters.currentClass}_students.xlsx`);
+        writeFile(workbook, `Session_${filters.session}_Class-${filters.currentClass || "All"}_students.xlsx`);
     };
 
     const exportToCSV = () => {
@@ -52,7 +52,7 @@ export default function ExportPage() {
         const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
         const link = document.createElement('a');
         link.href = URL.createObjectURL(blob);
-        link.setAttribute('download', `${filters.session}-${filters.currentClass}_students.csv`);
+        link.setAttribute('download', `Session_${filters.session}_Class-${filters.currentClass || "All"}_students.csv`);
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -72,7 +72,7 @@ export default function ExportPage() {
                 d.session,
             ]),
         });
-        doc.save(`${filters.session}-${filters.currentClass}_students.pdf`);
+        doc.save(`Session_${filters.session}_Class-${filters.currentClass || "All"}_students.pdf`);
     };
 
     return (

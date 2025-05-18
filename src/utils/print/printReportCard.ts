@@ -16,7 +16,7 @@ const printHtmlContent = (content: string) => {
 
     printWindow.document.close();
     printWindow.focus();
-    printWindow.print();
+    // printWindow.print();
 };
 
 export const printReportCard = async (marksheet: MarksheetInput) => {

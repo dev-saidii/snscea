@@ -114,7 +114,7 @@ export default function AdmissionPage() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: i * 0.15 }}
-                            className="bg-white rounded-2xl shadow-lg p-6 flex flex-col items-center text-center"
+                            className=" rounded-2xl shadow-lg p-6 flex flex-col items-center text-center"
                         >
                             <div key={step.title} className="...">
                                 <div className="mb-4 flex justify-center">{step.icon}</div>
@@ -127,7 +127,7 @@ export default function AdmissionPage() {
             </section>
 
             {/* Admission Form */}
-            <section className="max-w-4xl mx-auto bg-white/80 border border-blue-200 rounded-xl shadow p-10 mb-24">
+            <section className="max-w-4xl mx-auto  border border-blue-200 rounded-xl shadow p-10 mb-24">
                 <h2 className="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-blue-700 to-purple-700 bg-clip-text text-transparent">
                     Admission Enquiry Form
                 </h2>
@@ -190,7 +190,7 @@ export default function AdmissionPage() {
                         <button
                             disabled={loading}
                             type="submit"
-                            className="w-full cursor-pointer bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-3 rounded-xl shadow-lg hover:scale-105 transition-transform"
+                            className="w-full cursor-pointer bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-2 rounded-xl shadow-lg hover:scale-105 transition-transform"
                         >
                             {loading ? "Submitting..." : "Submit Enquiry"}
 
@@ -213,7 +213,7 @@ export default function AdmissionPage() {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: i * 0.1 }}
-                            className="bg-white rounded-xl shadow p-6"
+                            className="rounded-xl shadow p-6"
                         >
                             <div className="font-semibold text-blue-700 mb-2">{faq.q}</div>
                             <div className="text-gray-700">{faq.a}</div>

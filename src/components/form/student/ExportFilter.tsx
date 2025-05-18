@@ -38,7 +38,7 @@ const FilterSelect = ({
             onChange={onChange}
             className="w-full px-3 py-1.5 text-xs rounded border border-gray-300 dark:border-gray-600 bg-white dark:bg-[#13222f] text-gray-900 dark:text-white focus:ring-blue-500 focus:outline-none"
         >
-            <option value="">Select {label}</option>
+            <option value="">All {label}</option>
             {options.map((opt) => (
                 <option key={opt} value={opt}>{opt}</option>
             ))}

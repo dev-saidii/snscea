@@ -16,7 +16,7 @@ const printHtmlContent = (title: string, content: string) => {
 
     printWindow.document.close();
     printWindow.focus();
-    printWindow.print();
+    // printWindow.print();
 };
 
 export const printMultipleStudentFeeCards = async (students: Student[]) => {

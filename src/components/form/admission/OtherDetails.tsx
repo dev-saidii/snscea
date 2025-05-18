@@ -11,8 +11,8 @@ interface Props {
     setNationality: (val: string) => void;
 }
 
-const bloodGroups = ['', 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
-const categories = ['', 'General', 'OBC', 'SC', 'ST', 'Other'];
+const bloodGroups = ['Select Blood Group', 'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+const categories = ['Select Category', 'General', 'OBC', 'SC', 'ST', 'Other'];
 
 export default function OtherDetails({
     bloodGroup,

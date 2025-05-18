@@ -30,7 +30,7 @@ export async function POST(req: Request) {
                 employeeNumber: user.employeeNumber
             },
             JWT_SECRET,
-            { expiresIn: '1d' }
+            { expiresIn: '12h' }
         );
 
         const response = NextResponse.json({
