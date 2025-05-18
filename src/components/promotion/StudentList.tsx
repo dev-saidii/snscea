@@ -38,7 +38,7 @@ export default function StudentList({
             <table className="min-w-full text-sm text-left">
                 <thead className="bg-blue-50 dark:bg-blue-900 sticky top-0 z-10">
                     <tr>
-                        <th className="p-3 font-semibold text-gray-700 dark:text-gray-100">
+                        <th className="p-3 font-semibold cursor-pointer text-gray-700 dark:text-gray-100">
                             <input
                                 type="checkbox"
                                 onChange={(e) => onSelectAll?.(e.target.checked)}
@@ -63,7 +63,7 @@ export default function StudentList({
                             className={`transition hover:bg-blue-50 dark:hover:bg-blue-800 ${idx % 2 === 0 ? "bg-gray-50 dark:bg-[#1a2636]" : "bg-white dark:bg-[#16202d]"
                                 }`}
                         >
-                            <td className="p-3 font-mono text-blue-600">
+                            <td className="p-3 font-mono text-blue-600 cursor-pointer">
                                 <input
                                     type="checkbox"
                                     checked={selectedIds.includes(s._id)}

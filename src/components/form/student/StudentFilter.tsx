@@ -2,12 +2,13 @@
 
 import { useMemo } from 'react';
 import { generateLast5Sessions } from '@/utils/helpher';
-import { Search } from 'lucide-react';
+import { Loader2, Search } from 'lucide-react';
 
 type Props = {
     filters;
     setFilters: (v) => void;
     onSearch: () => void;
+    isSearching: boolean;
 };
 
 const sections = ['A', 'B', 'C', 'D', 'E', 'F'];
@@ -17,7 +18,7 @@ const classes = [
 ];
 
 
-const StudentFilter = ({ filters, setFilters, onSearch }: Props) => {
+const StudentFilter = ({ filters, setFilters, onSearch, isSearching }: Props) => {
     const sessions = useMemo(() => generateLast5Sessions(), []);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -120,9 +121,10 @@ const StudentFilter = ({ filters, setFilters, onSearch }: Props) => {
                     <label className="text-sm font-medium text-transparent mb-1">.</label>
                     <button
                         onClick={onSearch}
+                        disabled={isSearching}
                         className="bg-green-60 cursor-pointer bg-[#205D80] hover:bg-[#205D90] text-white dark:text-gray-100 text-sm font-medium rounded-md px-4 py-1.5 dark:hover:bg-gray-600 transition"
                     >
-                        Search
+                        {isSearching ? <p className='px-3'> <Loader2 size={18} className='animate-spin' /></p> : "search"}
                     </button>
                 </div>
             </div>

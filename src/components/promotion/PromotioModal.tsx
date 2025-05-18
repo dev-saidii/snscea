@@ -151,7 +151,7 @@ const PromotionModal: React.FC<PromotionModalProps> = ({ isOpen, onClose, studen
                 <button
                     onClick={handlePromote}
                     disabled={loading}
-                    className="w-full mt-6 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600
+                    className="w-full cursor-pointer mt-6 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600
                     text-white py-3 px-6 rounded-lg font-medium transition-all transform hover:scale-[1.01] 
                     disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >

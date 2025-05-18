@@ -81,13 +81,13 @@ export default function MarksheetPage() {
           {/* Submit Button */}
           <div className="flex justify-center mt-6">
             <button
-              className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-blue-600 cursor-pointer text-white px-6 py-2 rounded hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
               onClick={handleSubmit}
               disabled={loading}
             >
               {loading ? (
                 <div className="flex items-center space-x-2">
-                  <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                  <span className="w-4 h-4  border-2 border-white border-t-transparent rounded-full animate-spin"></span>
                   <span>Generating...</span>
                 </div>
               ) : (

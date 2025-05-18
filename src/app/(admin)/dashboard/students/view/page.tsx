@@ -5,6 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { getStudentById } from '@/services/student';
 import StudentProfile from '@/components/form/student/StudentProfile';
 import { Student } from '@/types/type';
+import { Loader2 } from 'lucide-react';
 
 const StudentDetails = () => {
     const params = useSearchParams();
@@ -28,7 +29,7 @@ const StudentDetails = () => {
         fetchStudent();
     }, [id]);
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <p className='h-1/2 w-1/2 mx-auto flex items-center justify-center'>  <Loader2 className='animate-spin' /> Loading...</p>;
     if (error) return <p>{error}</p>;
     if (!student) return <p>No student found</p>;
 

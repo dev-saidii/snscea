@@ -170,7 +170,7 @@ export default function UpdateAdmissionForm() {
                 <button
                     type="submit"
                     disabled={updating}
-                    className={`flex items-center gap-2 px-6 py-2 rounded-lg font-semibold text-white transition duration-200 
+                    className={`flex cursor-pointer items-center gap-2 px-6 py-2 rounded-lg font-semibold text-white transition duration-200 
           ${updating ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-600 hover:bg-blue-700'}`}
                 >
                     {updating ? (

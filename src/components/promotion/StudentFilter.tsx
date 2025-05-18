@@ -90,7 +90,7 @@ const StudentFilter = ({ filters, setFilters, onSearch, loading }: Props) => {
                         onClick={onSearch}
                         className="bg-blue-200 cursor-pointer dark:bg-gray-700 text-gray-800 dark:text-gray-100 text-sm font-medium rounded-md px-4 py-1.5 hover:bg-blue-300 dark:hover:bg-gray-600 transition"
                     >
-                        {loading ? <Loader2 className='animate-spin' /> : <span> Search</span>}
+                        {loading ? <p className='px-3'><Loader2 className='animate-spin' size={20}/></p> : <span> Search</span>}
                     </button>
                 </div>
             </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Trash2 } from "lucide-react";
+import { Loader2, Trash2 } from "lucide-react";
 import Swal from "sweetalert2";
 import { deleteUser, getUsers } from "@/services/auth";
 
@@ -16,9 +16,11 @@ type UserType = {
   status: string;
 };
 
-export default function UsersTablePage() {  
+export default function UsersTablePage() {
   const [users, setUsers] = useState<UserType[]>([]);
   const [loading, setLoading] = useState(true);
+  const [isDeleting, setIsDeleting] = useState(false);
+
 
   const fetchUsers = async () => {
     try {
@@ -44,12 +46,15 @@ export default function UsersTablePage() {
 
     if (confirm.isConfirmed) {
       try {
+        setIsDeleting(true);
         await deleteUser(userId);
         setUsers(users.filter((user) => user._id !== userId));
         Swal.fire("Deleted!", "User has been deleted.", "success");
       } catch (err) {
         console.error(err);
         Swal.fire("Error", "Failed to delete user", "error");
+      } finally {
+        setIsDeleting(false)
       }
     }
   };
@@ -65,7 +70,7 @@ export default function UsersTablePage() {
       </h1>
 
       {loading ? (
-        <p className="text-gray-500 dark:text-gray-300">Loading users...</p>
+        <p className="text-gray-500 dark:text-gray-300"> <Loader2 className="animate-spin"/> Loading users...</p>
       ) : users.length === 0 ? (
         <p className="text-gray-500 dark:text-gray-300">No users found.</p>
       ) : (
@@ -91,13 +96,15 @@ export default function UsersTablePage() {
                   <td className="px-4 py-3">{user.mobile}</td>
                   <td className="px-4 py-3 capitalize">{user.role}</td>
                   <td className="px-4 py-3 capitalize">{user.status}</td>
-                  <td className="px-4 py-3 text-right">
-                    <button
-                      onClick={() => handleDelete(user._id)}
-                      className="text-red-600 hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 transition"
-                    >
-                      <Trash2 size={18} />
-                    </button>
+                  <td className="px-4 py-3 text-right text-red">
+                    {isDeleting ? <span className="text-red">Deleting</span> :
+                      <button
+                        onClick={() => handleDelete(user._id)}
+                        className="text-red-600 cursor-pointer hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 transition"
+                      >
+                        <Trash2 size={18} />
+                      </button>}
+
                   </td>
                 </tr>
               ))}

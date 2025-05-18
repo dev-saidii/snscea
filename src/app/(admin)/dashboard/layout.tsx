@@ -15,15 +15,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         const user = localStorage.getItem("saidii-user");
 
         if (!user) {
+            router.replace("/login");
             Swal.fire({
                 title: "Login Required",
                 text: "You must be logged in to access this page.",
                 icon: "warning",
                 confirmButtonText: "Go to Login",
                 confirmButtonColor: "#2563eb"
-            }).then(() => {
-                router.replace("/login");
-            });
+            })
         } else {
             const parsedUser = JSON.parse(user || "")
             setLoading(false);

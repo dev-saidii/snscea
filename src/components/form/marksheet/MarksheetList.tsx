@@ -24,7 +24,7 @@ export default function MarksheetList({
 
     return (
         <div className="w-full overflow-x-auto rounded-lg shadow border border-blue-100 bg-white dark:bg-[#13222f]">
-            <table className="min-w-full text-sm text-left">
+            <table className="min-w-full text-sm text-center">
                 <thead className="bg-blue-50 dark:bg-blue-900 sticky top-0 z-10">
                     <tr>
                         <th className="p-3 font-semibold text-gray-700 dark:text-gray-100">#</th>

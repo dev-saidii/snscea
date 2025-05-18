@@ -80,7 +80,7 @@ export default function PhotoUpload({
                         <button
                             type="button"
                             onClick={handleRemove}
-                            className="absolute -top-2 -right-2 bg-white dark:bg-gray-800 rounded-full p-0.5 shadow-sm hover:scale-105 transition"
+                            className="absolute -top-2 -right-2 cursor-pointer bg-white dark:bg-gray-800 rounded-full p-0.5 shadow-sm hover:scale-105 transition"
                         >
                             <X size={16} className="text-red-600" />
                         </button>

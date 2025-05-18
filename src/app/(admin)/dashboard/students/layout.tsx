@@ -122,15 +122,15 @@ const StudentLayout = ({ children }: { children: React.ReactNode }) => {
                 <div className="fixed z-40 flex py-3 justify-between w-[calc(100%-256px)]">
                     <button
                         onClick={() => router.back()}
-                        className="flex items-center gap-2 px-4 py-2 ml-6 rounded-full bg-white dark:bg-[#22384a] text-[#205D80] dark:text-white shadow-lg hover:bg-[#eaf6fb] dark:hover:bg-[#2a4660] transition-transform hover:scale-105"
+                        className="flex cursor-pointer items-center gap-2 px-4 py-2 ml-6 rounded-full bg-white dark:bg-[#22384a] text-[#205D80] dark:text-white shadow-lg hover:bg-[#eaf6fb] dark:hover:bg-[#2a4660] transition-transform hover:scale-105"
                     >
                         <ArrowLeft size={18} />
-                        <span className="text-sm cursor-pointer font-medium">Back</span>
+                        <span className="text-sm  font-medium">Back</span>
                     </button>
 
                     <button
                         onClick={() => router.push('/dashboard')}
-                        className="flex items-center gap-2 px-4 py-2 mr-6 rounded-full bg-white dark:bg-[#22384a] text-[#205D80] dark:text-white shadow-lg hover:bg-[#eaf6fb] dark:hover:bg-[#2a4660] transition-transform hover:scale-105"
+                        className="flex cursor-pointer items-center gap-2 px-4 py-2 mr-6 rounded-full bg-white dark:bg-[#22384a] text-[#205D80] dark:text-white shadow-lg hover:bg-[#eaf6fb] dark:hover:bg-[#2a4660] transition-transform hover:scale-105"
                     >
                         <Home size={18} />
                         <span className="text-sm cursor-pointer font-medium">Dashboard</span>

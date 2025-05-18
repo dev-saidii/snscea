@@ -106,13 +106,13 @@ const RegisterForm = () => {
                     className="border border-blue-200 p-2 rounded"
                 >
                     <option value="">Select Role</option>
-                    {/* <option value="superadmin">Super Admin</option> */}
+                    <option value="superadmin">Super Admin</option>
                     <option value="admin">Admin</option>
                     <option value="teacher">Teacher</option>
                     {/* <option value="accountant">Accountant</option> */}
                 </select>
 
-                <PhotoUpload setPhoto={(val: string) => setForm({ ...form, photo: val })} photo={form.photo} />
+                {/* <PhotoUpload setPhoto={(val: string) => setForm({ ...form, photo: val })} photo={form.photo} /> */}
                 <button
                     disabled={loading}
                     type="submit"

@@ -68,6 +68,7 @@ const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
                         })}
                     </ul>
                 </nav>
+                
             </aside>
 
             {/* Content Area */}

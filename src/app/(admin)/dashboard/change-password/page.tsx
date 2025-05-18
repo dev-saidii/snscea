@@ -67,20 +67,20 @@ export default function ChangePasswordPage() {
                 }}
             >
                 <ArrowLeft size={18} />
-                <span className="text-sm font-medium">Back</span>
+                <span className="text-sm cursor-pointer font-medium">Back</span>
             </button>
 
 
             {/* Fixed Back Button */}
             <button
                 onClick={() => router.push('/dashboard')}
-                className="fixed z-40 flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-[#22384a] text-[#205D80] dark:text-white shadow hover:bg-[#eaf6fb] dark:hover:bg-[#2a4660] transition"
+                className="fixed z-40 cursor-pointer flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-[#22384a] text-[#205D80] dark:text-white shadow hover:bg-[#eaf6fb] dark:hover:bg-[#2a4660] transition"
                 style={{
                     top: TOPBAR_HEIGHT + 16, // 16px gap below TopBar
                     right: 24,
                 }}
             >
-                <Home size={18} />
+                <Home size={18} /> Dashboard
             </button>
             <h1 className="text-2xl font-bold text-[#205D80] text-center dark:text-white mb-6">
                 Change Password
@@ -128,7 +128,7 @@ export default function ChangePasswordPage() {
                 <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-[#205D80] hover:bg-[#1a4d6d] text-white font-medium py-2 px-4 rounded transition"
+                    className="w-full cursor-pointer bg-[#205D80] hover:bg-[#1a4d6d] text-white font-medium py-2 px-4 rounded transition"
                 >
                     {loading ? "Changing..." : "Change Password"}
                 </button>

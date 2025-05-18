@@ -1,8 +1,10 @@
 "use client";
+import API from "@/lib/axios";
 import { motion } from "framer-motion";
 import { BadgeDollarSign, FileText, MapPin, Users } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const steps = [
     {
@@ -43,9 +45,30 @@ const faqs = [
 ];
 
 export default function AdmissionPage() {
-    // Simple form state for demonstration
     const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
     const [submitted, setSubmitted] = useState(false);
+    const [loading, setLoading] = useState(false);
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            setLoading(true)
+            const { data } = await API.post("/api/admissions/enquiry", form);
+            if (data.success) {
+                setSubmitted(true);
+            } else {
+                toast.error("Failed to send. Please try again.");
+            }
+        } catch (err) {
+            console.error(err);
+            toast.error("Something went wrong.");
+        } finally {
+            setLoading(false)
+        }
+    }
+
 
     return (
         <main className="min-h-screen bg-gradient-to-br from-blue-100 via-green-50 to-blue-100 py-16 px-2 sm:px-4">
@@ -119,10 +142,7 @@ export default function AdmissionPage() {
                 ) : (
                     <form
                         className="space-y-6"
-                        onSubmit={e => {
-                            e.preventDefault();
-                            setSubmitted(true);
-                        }}
+                        onSubmit={handleSubmit}
                     >
                         {/* Row for Name, Email, Phone */}
                         <div className="flex flex-col md:flex-row gap-4">
@@ -131,7 +151,7 @@ export default function AdmissionPage() {
                                 <input
                                     required
                                     type="text"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
+                                    className="w-full text-xs px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
                                     value={form.name}
                                     onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
                                 />
@@ -141,7 +161,7 @@ export default function AdmissionPage() {
                                 <input
                                     required
                                     type="email"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
+                                    className="w-full text-xs px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
                                     value={form.email}
                                     onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
                                 />
@@ -151,7 +171,7 @@ export default function AdmissionPage() {
                                 <input
                                     required
                                     type="tel"
-                                    className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
+                                    className="w-full text-xs px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
                                     value={form.phone}
                                     onChange={e => setForm(f => ({ ...f, phone: e.target.value }))}
                                 />
@@ -161,17 +181,19 @@ export default function AdmissionPage() {
                         <div>
                             <label className="block text-gray-700 font-medium mb-2">Message</label>
                             <textarea
-                                className="w-full px-4 py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
+                                className="w-full px-4 text-xs py-3 rounded-xl border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
                                 rows={3}
                                 value={form.message}
                                 onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
                             />
                         </div>
                         <button
+                            disabled={loading}
                             type="submit"
-                            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-3 rounded-xl shadow-lg hover:scale-105 transition-transform"
+                            className="w-full cursor-pointer bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold py-3 rounded-xl shadow-lg hover:scale-105 transition-transform"
                         >
-                            Submit Enquiry
+                            {loading ? "Submitting..." : "Submit Enquiry"}
+
                         </button>
                     </form>
 

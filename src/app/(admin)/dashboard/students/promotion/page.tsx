@@ -66,9 +66,6 @@ const StudentsPage = () => {
         setPromotionModal(true)
     }
 
-
-
-
     return (
         <div className="p-4 space-y-6">
             <h1 className="text-2xl font-bold  text-[#205D80] text-center drop-shadow-sm pb-4 uppercase">Student Promotion to Next Class</h1>

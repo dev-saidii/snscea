@@ -8,6 +8,11 @@ export const login = async (employeeNumber: string, password: string) => {
     return res.data;
 };
 
+export const verifyUser = async () => {
+    const res = await API.get('/api/users/verify');
+    return res.data;
+};
+
 // ✅ Register
 export const registerUserService = async (formData) => {
     const response = await API.post('/api/users', formData);

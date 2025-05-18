@@ -100,9 +100,9 @@ export const ExportFilter = ({ filters, setFilters, onSearch, isSearching }: Pro
                     <label className="text-sm font-medium text-transparent mb-1">.</label>
                     <button
                         onClick={onSearch}
-                        className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white text-sm font-medium rounded-md px-4 py-1.5"
+                        className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white text-sm font-medium rounded-md px-8 py-1.5"
                     >
-                        {isSearching ? <Loader2 className='animate-spin' /> : "Search"}
+                        {isSearching ? <p className='px-3'><Loader2 className='animate-spin' size={20} /></p> : "Search"}
 
                     </button>
                 </div>

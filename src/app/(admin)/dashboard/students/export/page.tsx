@@ -79,30 +79,30 @@ export default function ExportPage() {
         <div className="p-6 max-w-5xl mx-auto">
             <h2 className="text-2xl font-bold  text-[#205D80] text-center drop-shadow-sm pb-4 uppercase">Export Student Data</h2>
 
+            <ExportFilter filters={filters} setFilters={setFilters} onSearch={handleSearch} isSearching={loading} />
+            <br />
+
             {!loading && data.length > 0 &&
                 <div className="flex gap-4 mb-6 justify-center">
                     <button
                         onClick={exportToExcel}
-                        className="bg-blue-600 hover:bg-blue-700 text-xs text-white px-4 py-2 rounded"
+                        className="bg-blue-600 cursor-pointer hover:bg-blue-700 text-xs text-white px-4 py-2 rounded"
                     >
                         Export to Excel
                     </button>
                     <button
                         onClick={exportToCSV}
-                        className="bg-green-600 hover:bg-green-700 text-xs text-white px-4 py-2 rounded"
+                        className="bg-green-600 cursor-pointer hover:bg-green-700 text-xs text-white px-4 py-2 rounded"
                     >
                         Export to CSV
                     </button>
                     <button
                         onClick={exportToPDF}
-                        className="bg-red-600 hover:bg-red-700 text-xs text-white px-4 py-2 rounded"
+                        className="bg-red-600 cursor-pointer hover:bg-red-700 text-xs text-white px-4 py-2 rounded"
                     >
                         Export to PDF
                     </button>
                 </div>}
-
-            <ExportFilter filters={filters} setFilters={setFilters} onSearch={handleSearch} isSearching={loading} />
-            <br />
 
             {!data.length ?
 

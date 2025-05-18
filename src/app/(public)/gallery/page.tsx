@@ -124,7 +124,7 @@ const Gallery = () => {
                             {lightbox.caption}
                         </p>
                         <button
-                            className="absolute top-2 right-4 text-white text-3xl font-bold hover:text-pink-300"
+                            className="absolute top-2 cursor-pointer right-4 text-white text-3xl font-bold hover:text-pink-300"
                             onClick={e => {
                                 e.stopPropagation();
                                 setLightbox(null);

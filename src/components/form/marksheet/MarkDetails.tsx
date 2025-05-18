@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Plus, Trash2 } from 'lucide-react';
 import { calculateGrade, gradeColor } from '@/utils/helpher';
+import toast from 'react-hot-toast';
 
 type Term = {
     max: number;
@@ -58,6 +59,7 @@ export default function MarksEntry({ marks, setMarks }: Props) {
         setError("");
         if (!form.subjectName.trim()) {
             setError('Please enter subject name');
+            toast.error("Please enter subject name")
             return;
         }
         for (const term of ['term1', 'term2', 'term3'] as const) {
@@ -100,7 +102,7 @@ export default function MarksEntry({ marks, setMarks }: Props) {
                     <div>
                         <button
                             onClick={handleAdd}
-                            className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-lg hover:scale-105 transition flex items-center justify-center gap-2"
+                            className="w-full cursor-pointer bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 rounded-lg hover:scale-105 transition flex items-center justify-center gap-2"
                         >
                             <Plus className="w-4 h-4" /> Add Subject
                         </button>

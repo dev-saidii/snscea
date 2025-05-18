@@ -10,7 +10,7 @@ import { printMultipleStudentFeeCards } from '@/utils/print/printFeeCard';
 import { printMultipleStudentIdCards, printSingleStudentIdCard, } from '@/utils/print/printStudentIdCard';
 import { CreditCard, IdCard, Loader2, Trash2 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Swal from 'sweetalert2';
 
 const StudentsPage = () => {
@@ -44,11 +44,25 @@ const StudentsPage = () => {
     }
 
     const handleView = (student: Student) => {
+        sessionStorage.setItem("studentFilters", JSON.stringify(filters));
         router.push(`/dashboard/students/view?id=${student._id}`);
     };
     const handleEdit = (student: Student) => {
+        sessionStorage.setItem("studentFilters", JSON.stringify(filters));
         router.push(`/dashboard/students/edit?id=${student._id}`);
     };
+
+    useEffect(() => {
+        const savedFilters = sessionStorage.getItem("studentFilters");
+
+        if (savedFilters) {
+            setFilters(JSON.parse(savedFilters));
+        }
+        fetchStudents();
+
+        // Optionally clear after restore
+        sessionStorage.removeItem("studentFilters");
+    }, []);
 
 
     const handleSelect = (id: string) => {
@@ -94,7 +108,7 @@ const StudentsPage = () => {
             fetchStudents()
         } catch (err) {
             console.error(err);
-            Swal.fire("Error!","Deletion failed.", "error");
+            Swal.fire("Error!", "Deletion failed.", "error");
         } finally {
             setIsDeleting(student._id)
         }
@@ -120,7 +134,7 @@ const StudentsPage = () => {
             fetchStudents()
         } catch (err) {
             console.error(err);
-            Swal.fire("Error!",  "Bulk delete failed.", "error");
+            Swal.fire("Error!", "Bulk delete failed.", "error");
         }
     };
 
@@ -139,7 +153,7 @@ const StudentsPage = () => {
                     <div className="flex flex-wrap gap-3 justify-between items-center">
                         <button
                             onClick={handleBulkDelete}
-                            className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-red-600 rounded-lg hover:bg-red-700 transition-all"
+                            className="flex cursor-pointer items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-red-600 rounded-lg hover:bg-red-700 transition-all"
                         >
                             <Trash2 size={16} />
                             Delete
@@ -147,7 +161,7 @@ const StudentsPage = () => {
 
                         <button
                             onClick={handleBulkPrintIdCard}
-                            className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-all"
+                            className="flex items-center cursor-pointer gap-2 px-4 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-all"
                         >
                             <IdCard size={16} />
                             Print ID Cards
@@ -155,7 +169,7 @@ const StudentsPage = () => {
 
                         <button
                             onClick={handleBulkPrintFeeCard}
-                            className="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-all"
+                            className="flex items-center gap-2 cursor-pointer px-4 py-2 text-sm font-semibold text-white bg-indigo-600 rounded-lg hover:bg-indigo-700 transition-all"
                         >
                             <CreditCard size={16} />
                             Print Fee Cards
@@ -165,7 +179,7 @@ const StudentsPage = () => {
             )}
 
 
-            <StudentFilter filters={filters} setFilters={setFilters} onSearch={handleSearch} />
+            <StudentFilter filters={filters} setFilters={setFilters} onSearch={handleSearch} isSearching={loading} />
             {loading ? (
                 <div className="flex justify-center items-center h-24">
                     <Loader2 className="w-8 h-8 text-indigo-600 animate-spin" />
