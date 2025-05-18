@@ -1,6 +1,6 @@
 // src/app/api/users/[id]/route.ts
 import { connectDB } from '@/lib/db';
-import { authenticate, authenticateModuleAccess } from '@/middlewares/moduleAuth';
+import {authenticateModuleAccess } from '@/middlewares/moduleAuth';
 import User from '@/models/user.model';
 import { NextRequest, NextResponse } from 'next/server';
 
