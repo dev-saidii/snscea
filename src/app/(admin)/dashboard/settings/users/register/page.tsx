@@ -1,6 +1,4 @@
 'use client';
-
-import PhotoUpload from '@/components/form/PhotoUpload';
 import { registerUserService } from '@/services/auth';
 import React, { useState } from 'react';
 import Swal from 'sweetalert2';
@@ -12,7 +10,6 @@ const RegisterForm = () => {
         email: '',
         mobile: '',
         password: '',
-        photo: '',
         role: '',
     });
 
@@ -39,7 +36,6 @@ const RegisterForm = () => {
                 email: '',
                 mobile: '',
                 password: '',
-                photo: '',
                 role: '',
             });
         } catch (error) {
