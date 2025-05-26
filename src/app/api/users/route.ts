@@ -1,21 +1,26 @@
 import User from '@/models/user.model';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
 import { connectDB } from '@/lib/db';
 import { generateEmployeeId } from '@/lib/idGenerator';
 import { sendEmail } from '@/lib/sendEmail';
+import { authenticateModuleAccess } from '@/middlewares/moduleAuth';
 
 const roleAccessMap = {
-    superadmin: ['student', 'account', 'marksheet', 'setting'],
-    admin: ['student', 'account', 'marksheet'],
-    teacher: ['student', 'marksheet'],
-    accountant: ['account'],
+    superadmin: ['student', 'marksheet', 'setting'],
+    admin: ['student', 'marksheet'],
+    teacher: ['marksheet'],
 };
 
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
     try {
         await connectDB();
         const data = await req.json();
+        const access = await authenticateModuleAccess(req, 'setting');
+        if (!access) return NextResponse.json(
+            { success: false, errors: "Not Allowed" },
+            { status: 403 }
+        );
 
         // Validate role
         if (!roleAccessMap[data.role]) {
@@ -64,10 +69,15 @@ export async function POST(req: Request) {
     }
 }
 
-export async function GET() {
+export async function GET(req: NextRequest) {
     try {
         await connectDB();
-        const users = await User.find();
+        const access = await authenticateModuleAccess(req, 'setting');
+        if (!access) return NextResponse.json(
+            { success: false, errors: "Not Allowed" },
+            { status: 403 }
+        );
+        const users = await User.find().select('-password');
         return NextResponse.json({ success: true, users }, { status: 200 });
     } catch (error) {
         console.error(error);

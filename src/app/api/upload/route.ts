@@ -1,8 +1,15 @@
 import cloudinary from '@/lib/cloudinary';
+import { authenticateModuleAccess } from '@/middlewares/moduleAuth';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
     const formData = await request.formData();
     const file = formData.get('file');
+    const access = await authenticateModuleAccess(request, 'student');
+    if (!access) return NextResponse.json(
+        { success: false, errors: "Not Allowed" },
+        { status: 403 }
+    );
 
     if (!file || typeof file === 'string') {
         return Response.json({ success: false, error: 'No file uploaded' }, { status: 400 });

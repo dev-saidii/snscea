@@ -69,16 +69,16 @@ const AboutPage = () => {
                 </section>
 
 
-                {/* Principal's Message */}
+                {/* Director's Message */}
                 <section className="mb-16">
-                    <h2 className="text-2xl font-semibold text-blue-700 mb-6 text-center">Message from the Principal</h2>
+                    <h2 className="text-2xl font-semibold text-blue-700 mb-6 text-center">Message from the Director</h2>
                     <div className="grid md:grid-cols-2 gap-10 items-center">
                         <div>
                             <Image
-                                src="/gallery/principal.png"
-                                alt="Principal"
-                                width={400}
-                                height={400}
+                                src="/gallery/director.jpg"
+                                alt="director"
+                                width={500}
+                                height={500}
                                 className="rounded-xl shadow-md object-cover w-full"
                             />
                         </div>
@@ -89,7 +89,7 @@ const AboutPage = () => {
                             <p className="text-gray-700 mt-4 leading-relaxed text-lg">
                                 We are proud to be shaping future leaders with strong moral values and a passion for excellence. I invite all students and parents to join us in this journey of growth, discovery, and transformation.”
                             </p>
-                            <p className="text-blue-800 mt-6 font-semibold">— {process.env.NEXT_PUBLIC_INSTITUTE_PRINCIPAL}<br />Principal, SNSCEA</p>
+                            <p className="text-blue-800 mt-6 font-semibold"> — {process.env.NEXT_PUBLIC_INSTITUTE_DIRECTOR}<br />Director, SNSCEA</p>
                         </div>
                     </div>
                 </section>

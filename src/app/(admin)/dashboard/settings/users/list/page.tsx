@@ -19,7 +19,7 @@ type UserType = {
 export default function UsersTablePage() {
   const [users, setUsers] = useState<UserType[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isDeleting, setIsDeleting] = useState(false);
+  const [isDeleting, setIsDeleting] = useState('');
 
 
   const fetchUsers = async () => {
@@ -28,6 +28,14 @@ export default function UsersTablePage() {
       setUsers(res.users);
     } catch (err) {
       console.error(err);
+      if (err.response.status === 403) {
+        Swal.fire({
+          title: 'Access Denied',
+          text: 'You do not have permission to access this resource.',
+          icon: 'warning',
+        });
+        return;
+      }
       Swal.fire("Error", "Failed to load users", "error");
     } finally {
       setLoading(false);
@@ -46,15 +54,30 @@ export default function UsersTablePage() {
 
     if (confirm.isConfirmed) {
       try {
-        setIsDeleting(true);
+        setIsDeleting(userId);
         await deleteUser(userId);
         setUsers(users.filter((user) => user._id !== userId));
         Swal.fire("Deleted!", "User has been deleted.", "success");
       } catch (err) {
         console.error(err);
+        if (err.response.status === 403) {
+          Swal.fire({
+            title: 'Access Denied',
+            text: 'You do not have permission to access this resource.',
+            icon: 'warning',
+          });
+          return;
+        }else if (err.response.status === 400) {
+          Swal.fire({
+            title: 'Access Denied',
+            text: err.response.data.message,
+            icon: 'warning',
+          });
+          return;
+        }
         Swal.fire("Error", "Failed to delete user", "error");
       } finally {
-        setIsDeleting(false)
+        setIsDeleting("")
       }
     }
   };
@@ -70,7 +93,7 @@ export default function UsersTablePage() {
       </h1>
 
       {loading ? (
-        <p className="text-gray-500 dark:text-gray-300"> <Loader2 className="animate-spin"/> Loading users...</p>
+        <p className="text-gray-500 dark:text-gray-300"> <Loader2 className="animate-spin" /> Loading users...</p>
       ) : users.length === 0 ? (
         <p className="text-gray-500 dark:text-gray-300">No users found.</p>
       ) : (
@@ -97,7 +120,7 @@ export default function UsersTablePage() {
                   <td className="px-4 py-3 capitalize">{user.role}</td>
                   <td className="px-4 py-3 capitalize">{user.status}</td>
                   <td className="px-4 py-3 text-right text-red">
-                    {isDeleting ? <span className="text-red">Deleting</span> :
+                    {isDeleting == user._id ? <span className="text-red">Deleting</span> :
                       <button
                         onClick={() => handleDelete(user._id)}
                         className="text-red-600 cursor-pointer hover:text-red-800 dark:text-red-400 dark:hover:text-red-300 transition"

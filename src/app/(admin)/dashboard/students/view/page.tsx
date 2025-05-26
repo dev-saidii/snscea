@@ -6,6 +6,7 @@ import { getStudentById } from '@/services/student';
 import StudentProfile from '@/components/form/student/StudentProfile';
 import { Student } from '@/types/type';
 import { Loader2 } from 'lucide-react';
+import Swal from 'sweetalert2';
 
 const StudentDetails = () => {
     const params = useSearchParams();
@@ -20,6 +21,14 @@ const StudentDetails = () => {
                 const response = await getStudentById(id);
                 setStudent(response);
             } catch (err) {
+                if (err.response.status === 403) {
+                    Swal.fire({
+                        title: 'Access Denied',
+                        text: 'You do not have permission to access this resource.',
+                        icon: 'warning',
+                    });
+                    return;
+                }
                 console.log(err)
                 setError('Failed to fetch student data');
             } finally {

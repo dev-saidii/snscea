@@ -60,6 +60,14 @@ const MarksheetPage = () => {
             fetchMarksheets()
         } catch (err) {
             console.error(err);
+            if (err.response.status === 403) {
+                Swal.fire({
+                    title: 'Access Denied',
+                    text: 'You do not have permission to access this resource.',
+                    icon: 'warning',
+                });
+                return;
+            }
             Swal.fire("Error!", "Deletion failed.", "error");
         } finally {
             setIsDeleting("")
@@ -76,7 +84,7 @@ const MarksheetPage = () => {
             <h1 className="text-2xl font-bold">Student Admissions</h1>
 
 
-            <StudentFilter filters={filters} setFilters={setFilters} onSearch={handleSearch} />
+            <StudentFilter filters={filters} setFilters={setFilters} onSearch={handleSearch}  isSearching={loading}/>
             {loading ? (
                 <div className="flex justify-center items-center h-24">
                     <Loader2 className="w-8 h-8 text-indigo-600 animate-spin" />

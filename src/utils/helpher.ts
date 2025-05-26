@@ -28,7 +28,7 @@ export function generateLast5Sessions(): string[] {
 
 // Shared configuration and utilities
 export const getInstituteDetails = () => ({
-    logoUrl: `/logo.png`,
+    logoUrl: `/logo-bgrm.png`,
     instName: process.env.NEXT_PUBLIC_INSTITUTE_NAME || "",
     instAddr: process.env.NEXT_PUBLIC_INSTITUTE_ADDRESS || "",
     instMobile: process.env.NEXT_PUBLIC_INSTITUTE_MOBILE || "",

@@ -31,12 +31,24 @@ const StudentsPage = () => {
     const router = useRouter();
 
     const fetchStudents = async () => {
-        setLoading(true)
-        const data = await getStudents(filters).finally(() => setLoading(false));
-        if (data.success) {
-            setStudents(data.students);
-            setPagination(data.pagination);
+        try {
+            setLoading(true)
+            const data = await getStudents(filters).finally(() => setLoading(false));
+            if (data.success) {
+                setStudents(data.students);
+                setPagination(data.pagination);
+            }
+        } catch (error) {
+            if (error.response.status === 403) {
+                Swal.fire({
+                    title: 'Access Denied',
+                    text: 'You do not have permission to access this resource.',
+                    icon: 'warning',
+                });
+                return;
+            }
         }
+
     };
 
     const handleSearch = () => {
@@ -107,6 +119,14 @@ const StudentsPage = () => {
             console.log("Deleted", res);
             fetchStudents()
         } catch (err) {
+            if (err.response.status === 403) {
+                Swal.fire({
+                    title: 'Access Denied',
+                    text: 'You do not have permission to access this resource.',
+                    icon: 'warning',
+                });
+                return;
+            }
             console.error(err);
             Swal.fire("Error!", "Deletion failed.", "error");
         } finally {
@@ -133,6 +153,14 @@ const StudentsPage = () => {
             console.log("Bulk Deleted", res);
             fetchStudents()
         } catch (err) {
+            if (err.response.status === 403) {
+                Swal.fire({
+                    title: 'Access Denied',
+                    text: 'You do not have permission to access this resource.',
+                    icon: 'warning',
+                });
+                return;
+            }
             console.error(err);
             Swal.fire("Error!", "Bulk delete failed.", "error");
         }

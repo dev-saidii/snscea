@@ -79,7 +79,7 @@ export async function generateReportCardHTML(marksheet: MarksheetInput, institut
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                opacity: 0.1;
+                opacity: 0.07;
                 z-index: 2100;
                 width: 600px;
                 height: 500px;
@@ -109,7 +109,7 @@ export async function generateReportCardHTML(marksheet: MarksheetInput, institut
             }
             .inst-name {
                 // border: 3px solid #205D80;
-                font-size: 29px;
+                font-size: 26px;
                 font-weight: bold;
                 color: #205D80;
                 margin-bottom: 0px;
@@ -242,18 +242,36 @@ export async function generateReportCardHTML(marksheet: MarksheetInput, institut
                 font-size: 13px;
                 color: #7f8c8d;
             }
+                .school-stamp {
+                    width: 110px;
+                    position: absolute;
+                    right: 12%;
+                    bottom: 10px;
+                    opacity: 0.85;
+                    z-index: 3;
+                }
+                .principal-signature {
+                    position: absolute;
+                    right: 8%;
+                    bottom: 35px;
+                    width: 140px;
+                    z-index: 3;
+                }
         #marksheet{
         width:900px;}
             @media print {
                 body {
                     margin: 0;
                     padding: 0;
+                    -webkit-print-color-adjust: exact;
+                    print-color-adjust: exact;
                 }
                 .letterpad-container {
                     box-shadow: none;
                     padding: 30px;
                     
                 }
+                    
             }
 
      </style>
@@ -346,12 +364,15 @@ export async function generateReportCardHTML(marksheet: MarksheetInput, institut
                     <span>Class Teacher</span>
                 </div>
                 <div class="signature">
+                    
                     <div style="border-top: 1px solid #205D80; width: 80%; margin: 0 auto"></div>
-                    <span>Principal</span>
+                    <span>Exam Controller</span>
                 </div>
                 <div class="signature">
+                    <img src="/school/snscea-sign.png" alt="Signature" class="principal-signature" />
+                    <img src="/school/snscea-stamp.png" alt="Stamp" class="school-stamp" />
                     <div style="border-top: 1px solid #205D80; width: 80%; margin: 0 auto"></div>
-                    <span>School Stamp</span>
+                    <span>Principal</span>
                 </div>
             </div>
         </div>

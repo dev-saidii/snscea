@@ -1,6 +1,7 @@
 'use client';
 import { registerUserService } from '@/services/auth';
 import React, { useState } from 'react';
+import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
 
 const RegisterForm = () => {
@@ -26,6 +27,9 @@ const RegisterForm = () => {
                 Swal.fire('Error', 'Please fill all required fields.', 'error');
                 return;
             }
+            if (form.password.length < 6) {
+                return toast.error("Password length should be min 6")
+            }
             setLoading(true)
 
             const res = await registerUserService(form);
@@ -40,6 +44,14 @@ const RegisterForm = () => {
             });
         } catch (error) {
             console.error(error);
+            if (error.response.status === 403) {
+                Swal.fire({
+                    title: 'Access Denied',
+                    text: 'You do not have permission to access this resource.',
+                    icon: 'warning',
+                });
+                return;
+            }
             Swal.fire(
                 'Registration Failed',
                 'Something went wrong.',
@@ -78,7 +90,7 @@ const RegisterForm = () => {
                     name="mobile"
                     value={form.mobile}
                     onChange={handleChange}
-                    placeholder="Mobile"    
+                    placeholder="Mobile"
                     className="border border-blue-200 p-2 rounded"
                     required
                     min={10}
@@ -93,6 +105,7 @@ const RegisterForm = () => {
                     placeholder="Password"
                     className="border border-blue-200 p-2 rounded"
                     required
+                    min={6}
                 />
 
 
@@ -104,8 +117,8 @@ const RegisterForm = () => {
                     className="border border-blue-200 p-2 rounded"
                 >
                     <option value="">Select Role</option>
-                    <option value="superadmin">Super Admin</option>
-                    <option value="admin">Admin</option>
+                    <option value="superadmin">Super Head</option>
+                    <option value="admin">Head</option>
                     <option value="teacher">Teacher</option>
                     {/* <option value="accountant">Accountant</option> */}
                 </select>

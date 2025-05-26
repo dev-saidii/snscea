@@ -5,11 +5,6 @@ import { Student } from '@/types/type';
 const generateQRCode = async (student: Student, institute) => {
   const qrText = [
     `Institute: ${institute.instName}`,
-    `Address: ${institute.instAddr}`,
-    `Phone: +91-${institute.instMobile}`,
-    `Website: ${institute.instUrl}`,
-    `Email: ${institute.instEmail}`,
-    ``,
     `Student Name: ${student.name}`,
     `Admission No: ${student.admissionNumber}`,
     `Class: ${student.currentClass} (${student.section})`,
@@ -19,7 +14,7 @@ const generateQRCode = async (student: Student, institute) => {
   ].join("\n");
 
   return QRCode.toDataURL(qrText, {
-    width: 100,
+    width: 200,
     margin: 1,
     color: { dark: "#205D80", light: "#ffffff" },
   });
@@ -34,13 +29,19 @@ export const generateIdCardHTML = async (student: Student, institute) => {
 
   return `
     <div class="id-card">
+    <div class="wave">
+      <svg viewBox="0 0 480 70" width="100%" height="70" preserveAspectRatio="none">
+        <path d="M0,30 Q120,80 240,30 T480,30 L480,0 L0,0 Z" fill="#205D80"/>
+        <path d="M0,40 Q120,60 240,40 T480,40 L480,0 L0,0 Z" fill="#b2ebf2" opacity="0.7"/>
+      </svg>
+    </div>
     <div class="inst-name">${institute.instName}</div>
       <div class="header">
         <img src="${institute.logoUrl}" alt="Logo" class="logo" />
         <div class="center">
           
           <div class="inst-details">${institute.instAddr}</div>
-          <div class="inst-details">📞 +91-${institute.instMobile} | 🌐 ${institute.instUrl}</div>
+          <div class="inst-details">📞 ${institute.instMobile} | 🌐 ${institute.instUrl}</div>
           <div class="session"><strong>Academic Session : ${academicSession}</strong></div>
         </div>
       </div>
@@ -51,10 +52,10 @@ export const generateIdCardHTML = async (student: Student, institute) => {
           <div class="name">${student.name}</div>
           <div class="row"><strong>Addm No:</strong> ${student.admissionNumber}</div>
           <div class="row"><strong>DoB:</strong> ${new Date(student.dob).toLocaleDateString("en-IN", {
-    year: "numeric",
-    month: "short",
-    day: "2-digit",
-  })}</div>
+          year: "numeric",
+          month: "short",
+          day: "2-digit",
+        })}</div>
           <div class="row"><strong>Class:</strong> ${student.currentClass} (${student.section})</div>
           <div class="row"><strong>Father Name:</strong> ${student.fatherName}</div>
           <div class="row"><strong>Mobile:</strong> ${student.mobile}</div>
@@ -65,14 +66,17 @@ export const generateIdCardHTML = async (student: Student, institute) => {
         </div>
       </div>
 
-      <div class="bottom">
-        <div><strong>Issued:</strong> ${new Date().toLocaleDateString()}</div>
-        <div class="sign">
-          <div>_________________________</div>
-          <div><strong>Authorized Signature</strong></div>
-          <div class="small">Principal / Director</div>
-        </div>
+     <div class="bottom">
+      <div><strong>Issued:</strong> ${new Date().toLocaleDateString()}</div>
+
+      <div class="sign">
+        <img src="/school/snscea-stamp.png" alt="Stamp" class="stamp" />
+        <img src="/school/snscea-sign.png" alt="Signature" class="signature" />
+        <div><strong>Authorized Signature</strong></div>
+        <div class="small">Principal / Director</div>
       </div>
+    </div>
+
     </div>
   `;
 };

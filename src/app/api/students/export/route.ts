@@ -6,8 +6,11 @@ import { authenticateModuleAccess } from '@/middlewares/moduleAuth';
 
 export async function GET(req: NextRequest) {
     await connectDB();
-    const result = authenticateModuleAccess(req, 'student');
-    if (result instanceof Response) return result;
+    const access = await authenticateModuleAccess(req, 'student');
+    if (!access) return NextResponse.json(
+        { success: false, errors: "Not Allowed" },
+        { status: 403 }
+    );
 
     const { searchParams } = new URL(req.url);
     const session = searchParams.get('session');

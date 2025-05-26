@@ -6,6 +6,7 @@ import { getFilteredStudents } from '@/services/student';
 import { IdCard, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import Swal from 'sweetalert2';
 
 export type Student = {
     _id: string;
@@ -39,6 +40,14 @@ const StudentsPage = () => {
             setStudents(data)
             setSelectedIds([])
         } catch (error) {
+            if (error.response.status === 403) {
+                Swal.fire({
+                    title: 'Access Denied',
+                    text: 'You do not have permission to access this resource.',
+                    icon: 'warning',
+                });
+                return;
+            }
             console.log(error)
             toast.error("No Student Found with Filter")
 

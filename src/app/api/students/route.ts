@@ -7,8 +7,11 @@ import { authenticateModuleAccess } from '@/middlewares/moduleAuth';
 export async function GET(req: NextRequest) {
     try {
         await connectDB();
-        const result = authenticateModuleAccess(req, 'student');
-        if (result instanceof Response) return result;
+        const access = await authenticateModuleAccess(req, 'student');
+        if (!access) return NextResponse.json(
+            { success: false, errors: "Not Allowed" },
+            { status: 403 }
+        );
 
         const { searchParams } = new URL(req.url);
 
@@ -47,7 +50,7 @@ export async function GET(req: NextRequest) {
             )
             .skip(skip)
             .limit(limit)
-            .sort({ admittedAt: -1 });
+            .sort({ currentClass: 1, section: 1, admittedAt: -1 });
 
         const total = await Admission.countDocuments(query);
 

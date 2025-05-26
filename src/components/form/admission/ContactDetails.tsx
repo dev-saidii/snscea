@@ -29,7 +29,6 @@ export default function ContactDetails({
                         Email Address
                     </label>
                     <input
-                        required
                         type="email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}

@@ -82,7 +82,15 @@ export default function UpdateAdmissionForm() {
                 setReligion(s.religion || '');
                 setNationality(s.nationality || 'Indian');
             } catch (err) {
-            console.log(err)
+                if (err.response.status === 403) {
+                    Swal.fire({
+                        title: 'Access Denied',
+                        text: 'You do not have permission to access this resource.',
+                        icon: 'warning',
+                    });
+                    return;
+                }
+                console.log(err)
                 toast.error('Something went wrong');
             } finally {
                 setLoading(false);
@@ -116,6 +124,14 @@ export default function UpdateAdmissionForm() {
 
 
         } catch (err) {
+            if (err.response.status === 403) {
+                Swal.fire({
+                    title: 'Access Denied',
+                    text: 'You do not have permission to access this resource.',
+                    icon: 'warning',
+                });
+                return;
+            }
             console.log(err)
             Swal.fire({
                 title: 'Error',

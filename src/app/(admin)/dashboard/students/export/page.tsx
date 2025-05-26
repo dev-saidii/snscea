@@ -11,6 +11,7 @@ import { getExportableStudents } from '@/services/student';
 import { Loader2 } from 'lucide-react';
 import { Student } from '@/types/type';
 import toast from 'react-hot-toast';
+import Swal from 'sweetalert2';
 
 
 
@@ -25,16 +26,29 @@ export default function ExportPage() {
     });
 
     const fetchStudents = async () => {
-        setLoading(true)
-        const data = await getExportableStudents(filters).finally(() => setLoading(false));
-        if (data.success) {
-            setData(data.students);
+        try {
+            setLoading(true)
+            const data = await getExportableStudents(filters).finally(() => setLoading(false));
+            if (data.success) {
+                setData(data.students);
+            }
+        } catch (error) {
+            if (error.response.status === 403) {
+                Swal.fire({
+                    title: 'Access Denied',
+                    text: 'You do not have permission to access this resource.',
+                    icon: 'warning',
+                });
+                return;
+            }
         }
+
+
     };
 
     const handleSearch = () => {
         if (!filters.session) return toast.error("Please Select Session")
-        // if (!filters.currentClass) return toast.error("Please Select Class")
+        if (!filters.currentClass) return toast.error("Please Select Class")
 
         fetchStudents();
     }
@@ -61,13 +75,15 @@ export default function ExportPage() {
     const exportToPDF = () => {
         const doc = new jsPDF();
         autoTable(doc, {
-            head: [['Admission No', 'Name', 'Class', 'Section', 'Gender', 'Mobile', 'Session']],
+            head: [['Adm No', 'Name', 'Class', 'Section', 'Gender', 'Father', 'Mother', 'Mobile', 'Session']],
             body: data.map((d) => [
                 d.admissionNumber,
                 d.name,
                 d.currentClass,
                 d.section,
                 d.gender,
+                d.fatherName,
+                d.motherName,
                 d.mobile,
                 d.session,
             ]),
@@ -90,12 +106,12 @@ export default function ExportPage() {
                     >
                         Export to Excel
                     </button>
-                    <button
+                    {/* <button
                         onClick={exportToCSV}
                         className="bg-green-600 cursor-pointer hover:bg-green-700 text-xs text-white px-4 py-2 rounded"
                     >
                         Export to CSV
-                    </button>
+                    </button> */}
                     <button
                         onClick={exportToPDF}
                         className="bg-red-600 cursor-pointer hover:bg-red-700 text-xs text-white px-4 py-2 rounded"

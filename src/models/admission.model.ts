@@ -10,6 +10,8 @@ export interface IAdmission extends Document {
 
     fatherName: string;
     motherName: string;
+    fatherAadhaar?: string;
+    motherAadhaar?: string;
 
     admissionNumber: string;
     penNumber?: string;
@@ -44,6 +46,8 @@ const AdmissionSchema = new Schema<IAdmission>(
 
         fatherName: { type: String, required: true },
         motherName: { type: String, required: true },
+        fatherAadhaar: { type: String },
+        motherAadhaar: { type: String },
 
         admissionNumber: { type: String, unique: true, required: true },
         penNumber: { type: String },

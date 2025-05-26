@@ -29,7 +29,7 @@ export default function MarksheetPage() {
         fatherName: student.fatherName,
         motherName: student.motherName || " ",
         dob: student.dob,
-        currentClass: student.currentClass ,
+        currentClass: student.currentClass,
         section: student.section || "",
         session: student.session,
         address: student.address,
@@ -57,6 +57,14 @@ export default function MarksheetPage() {
     } catch (error) {
       setLoading(false);
       console.log(error)
+      if (error.response.status === 403) {
+        Swal.fire({
+          title: 'Access Denied',
+          text: 'You do not have permission to access this resource.',
+          icon: 'warning',
+        });
+        return;
+      }
       Swal.fire({
         title: 'Error!',
         text: 'Failed to generate marksheet.',

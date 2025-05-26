@@ -1,12 +1,16 @@
-// src/app/api/users/[id]/route.ts
 import { connectDB } from '@/lib/db';
-import {authenticateModuleAccess } from '@/middlewares/moduleAuth';
+import { authenticateModuleAccess } from '@/middlewares/moduleAuth';
 import User from '@/models/user.model';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest, { params }) {
     try {
         await connectDB();
+        const access = await authenticateModuleAccess(req, 'setting');
+        if (!access) return NextResponse.json(
+            { success: false, errors: "Not Allowed" },
+            { status: 403 }
+        );
 
         // Get user by ID
         const user = await User.findById(params.id);
@@ -25,6 +29,11 @@ export async function GET(req: NextRequest, { params }) {
 export async function PUT(req: NextRequest, { params, request }) {
     try {
         await connectDB();
+        const access = await authenticateModuleAccess(req, 'setting');
+        if (!access) return NextResponse.json(
+            { success: false, errors: "Not Allowed" },
+            { status: 403 }
+        );
 
         const data = await request.json();
 
@@ -50,25 +59,24 @@ export async function DELETE(
 ) {
     try {
         await connectDB();
-        const { id } = params;
+        const { id } = await params;
 
         const loggedInUser = await authenticateModuleAccess(request, 'setting');
 
         if (!loggedInUser) {
-            return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
+            return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 403 });
         }
 
-
         // Don't allow deleting self
-        if (loggedInUser.userId === id) {
+        if (loggedInUser._id == id) {
             return NextResponse.json({
                 success: false,
                 message: "You can't delete your own account.",
             }, { status: 400 });
         }
 
-        // Don't allow deleting self
-        if (loggedInUser.userId === process.env.DEVELOPER_USERID) {
+        // Don't allow deleting developer 
+        if (id == process.env.DEVELOPER_USERID) {
             return NextResponse.json({
                 success: false,
                 message: "You can't delete developer account.",

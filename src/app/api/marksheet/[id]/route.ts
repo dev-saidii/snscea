@@ -10,8 +10,11 @@ export async function DELETE(
   try {
     await connectDB();
     const { id } = params;
-    const result = authenticateModuleAccess(req, "marksheet");
-    if (result instanceof Response) return result;
+    const access = await authenticateModuleAccess(req, 'marksheet');
+    if (!access) return NextResponse.json(
+      { success: false, errors: "Not Allowed" },
+      { status: 403 }
+    );
 
     const deleted = await marksheetModel.findByIdAndDelete(id);
 

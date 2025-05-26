@@ -121,9 +121,9 @@ export default function LoginPage() {
                     {error && <p className="text-red-500 text-center font-medium">{error}</p>}
                 </form>
 
-                <p className="text-center text-xs text-gray-400 dark:text-gray-500 relative z-10">
+                {/* <p className="text-center text-xs text-gray-400 dark:text-gray-500 relative z-10">
                     &copy; {new Date().getFullYear()} {process.env.NEXT_PUBLIC_INSTITUTE_NAME}
-                </p>
+                </p> */}
             </div>
         </main>
     );

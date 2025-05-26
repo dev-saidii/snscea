@@ -9,8 +9,8 @@ export const login = async (employeeNumber: string, password: string) => {
 };
 
 export const verifyUser = async () => {
-    const res = await API.get('/api/users/verify');
-    return res.data;
+    const { data } = await API.get('/api/users/verify');
+    return data
 };
 
 // ✅ Register
@@ -57,44 +57,26 @@ export const resetPassword = async (token: string, newPassword: string) => {
 
 
 export async function logout() {
-    const result = await Swal.fire({
-        title: 'Are you sure?',
-        text: 'You will be logged out!',
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#d33',
-        cancelButtonColor: '#3085d6',
-        confirmButtonText: 'Yes, logout!',
-        reverseButtons: true,
-    });
-
-    if (result.isConfirmed) {
-        try {
-            // Call the backend logout API to clear cookie
-            await API.post('/api/users/logout');
-
-            // Clear user data from localStorage
-            localStorage.removeItem('saidii-user');
-
-            // Redirect to login
-            window.location.href = '/login';
-            // Show success alert
-            await Swal.fire({
-                title: 'Logged Out',
-                text: 'You have been successfully logged out.',
-                icon: 'success',
-                timer: 2000,
-                showConfirmButton: false,
-            });
+    try {
+        await API.post('/api/users/logout');
+        localStorage.removeItem('saidii-user');
+        window.location.href = '/login';
+        // Show success alert
+        await Swal.fire({
+            title: 'Logged Out',
+            text: 'You have been successfully logged out.',
+            icon: 'success',
+            timer: 2000,
+            showConfirmButton: false,
+        });
 
 
-        } catch (error) {
-            console.error('Logout failed:', error);
-            await Swal.fire({
-                title: 'Error',
-                text: 'Something went wrong during logout.',
-                icon: 'error',
-            });
-        }
+    } catch (error) {
+        console.error('Logout failed:', error);
+        await Swal.fire({
+            title: 'Error',
+            text: 'Something went wrong during logout.',
+            icon: 'error',
+        });
     }
 }

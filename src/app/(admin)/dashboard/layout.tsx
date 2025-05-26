@@ -4,30 +4,48 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import TopBar from "@/components/ui/TopBar";
 import Swal from "sweetalert2";
+import { verifyUser } from "@/services/auth";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [userName, setUserName] = useState("User");
 
     const router = useRouter();
 
-    useEffect(() => {
-        const user = localStorage.getItem("saidii-user");
+    const userVerification = async () => {
+        try {
+            const res = await verifyUser();
 
-        if (!user) {
-            router.replace("/login");
-            Swal.fire({
-                title: "Login Required",
-                text: "You must be logged in to access this page.",
-                icon: "warning",
-                confirmButtonText: "Go to Login",
-                confirmButtonColor: "#2563eb"
-            })
-        } else {
-            const parsedUser = JSON.parse(user || "")
+            localStorage.setItem("saidii-user", JSON.stringify(res.user));
+            setUserName(res.user.name.split(" ")[0]);
             setLoading(false);
-            setUserName(parsedUser.name.split(" ")[0])
+        } catch (err: any) {
+            // Handle 401 or 403 specifically
+            if (err.response?.status === 401 || err.response?.status === 403) {
+                router.replace("/login");
+                Swal.fire({
+                    title: "Login Required",
+                    text: "You must be logged in to access this page.",
+                    icon: "warning",
+                    confirmButtonText: "Go to Login",
+                    confirmButtonColor: "#2563eb"
+                });
+            } else {
+                console.error("Unexpected error:", err);
+                router.replace("/");
+                Swal.fire({
+                    title: "Server Error",
+                    icon: "error",
+                    confirmButtonText: "Go to Home",
+                    confirmButtonColor: "#2563eb"
+                });
+            }
         }
+    };
+
+    useEffect(() => {
+        userVerification()
+
     }, [router]);
 
     if (loading) {

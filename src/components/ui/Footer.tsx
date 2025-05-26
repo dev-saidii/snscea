@@ -45,13 +45,16 @@ const Footer = () => {
                         whileHover={{ scale: 1.05 }}
                         className="flex items-center gap-3 group"
                     >
-                        <Image
-                            src="/logo.png"
-                            alt="School Logo"
-                            width={150}
-                            height={150}
-                            className="rounded-2xl transition-transform duration-300 group-hover:rotate-12"
-                        />
+                        <a href="/">
+                            <Image
+                                src="/logo.png"
+                                alt="School Logo"
+                                width={150}
+                                height={150}
+                                className="rounded-2xl transition-transform duration-300 group-hover:rotate-12"
+                            />
+                        </a>
+
                         {/* <span className="text-xl font-bold leading-snug bg-gradient-to-r from-blue-400 to-white bg-clip-text text-transparent">
                             Sri Netaji Subhash Chandra Educational Academy
                         </span> */}
@@ -93,13 +96,13 @@ const Footer = () => {
                             <div className="w-6 h-6 bg-blue-800/30 rounded-full flex items-center justify-center">
                                 📞
                             </div>
-                            {inst.instMobile}
+                            <a href={`tel:${inst.instMobile}`}>{inst.instMobile}</a>
                         </div>
                         <div className="flex items-center gap-3 hover:text-blue-400 transition-colors">
                             <div className="w-6 h-6 bg-blue-800/30 rounded-full flex items-center justify-center">
                                 ✉️
                             </div>
-                            <a href="mailto:info@school.edu">{inst.instEmail}</a>
+                            <a href={`mailto:${inst.instEmail}`}>{inst.instEmail}</a>
                         </div>
                     </div>
                 </div>
@@ -149,7 +152,7 @@ const Footer = () => {
             {/* Back to Top Button */}
             <motion.button
                 onClick={scrollToTop}
-                className="fixed bottom-8 right-8 p-3 bg-blue-600/30 backdrop-blur rounded-full shadow-lg hover:bg-blue-500/40 transition-all"
+                className="fixed bottom-12 cursor-pointer z-30 right-4 p-3 bg-blue-600/30 backdrop-blur rounded-full shadow-lg hover:bg-blue-500/40 transition-all"
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
             >
@@ -158,10 +161,37 @@ const Footer = () => {
 
             {/* Copyright Text */}
             <div className="text-center text-xs text-blue-300/60 mt-8 relative z-10">
+                {/* Client Institute Information */}
                 © {new Date().getFullYear()} {inst.instName}.<br />
                 Empowering Minds, Shaping Futures
-            </div>
 
+                {/* Your Development Company Credit */}
+                <div className="mt-3 text-[0.9em]">
+                    <span className="opacity-75">Designed and Developed by </span>
+                    <a
+                        href={process.env.NEXT_PUBLIC_COMPANY_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-medium hover:text-blue-400 transition-colors duration-300 hover:underline underline-offset-2"
+                    >
+                        {process.env.NEXT_PUBLIC_COMPANY_NAME}
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-3 w-3 ml-1 inline-block"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                            />
+                        </svg>
+                    </a>
+                </div>
+            </div>
             <style jsx global>{`
         @keyframes multi-wave {
           0% { transform: translateX(0) translateY(0); }

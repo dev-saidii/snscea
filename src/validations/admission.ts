@@ -13,6 +13,8 @@ export const AdmissionSchema = z.object({
     // Parent Details
     fatherName: z.string().min(1),
     motherName: z.string().min(1),
+    fatherAadhaar: z.string().optional(),
+    motherAadhaar: z.string().optional(),
     address: z.string().min(1),
 
     // Academic Details
@@ -24,7 +26,7 @@ export const AdmissionSchema = z.object({
     session: z.string().min(1),
 
     // Contact
-    email: z.string().email().optional(),
+    email: z.string().optional(),
     mobile: z.string().min(10).max(15).optional(),
 
     // Extra

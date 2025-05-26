@@ -1,40 +1,43 @@
+import User from '@/models/user.model';
 import jwt from 'jsonwebtoken';
 import { NextRequest, NextResponse } from 'next/server';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret_key';
 
-export function authenticateModuleAccess(req: NextRequest, requiredModule: string) {
+export async function authenticateModuleAccess(req: NextRequest, requiredModule: string) {
     const token = req.cookies.get('saidii-accessToken')?.value;
-    // console.log(token)
     if (!token) {
-        return NextResponse.json({ message: 'Unauthorized: No token' }, { status: 401 });
+        return null;
     }
 
     try {
         const decoded = jwt.verify(token, JWT_SECRET);
-
-        if (!decoded.access?.includes(requiredModule)) {
-            return NextResponse.json({ message: `Forbidden: No access to '${requiredModule}'` }, { status: 403 });
-        }
-
-        return decoded; // user data
+        if (!decoded) return null;
+        const user = await User.findById(decoded.userId)
+        if (!user || !user.access.includes(requiredModule)) return null;
+        const { password, ...safeUser } = user.toObject();
+        return safeUser;
     } catch (error) {
         console.error('JWT verification failed:', error);
-        return NextResponse.json({ message: 'Unauthorized: Invalid token' }, { status: 401 });
+        return null;
     }
 }
 
 
 
-export function authenticate(req: NextRequest) {
+export async function authenticate(req: NextRequest) {
     try {
         const token = req.cookies.get('saidii-accessToken')?.value;
         if (!token) {
-            return NextResponse.json({ message: 'Unauthorized: No token' }, { status: 401 });
+            return null;
         }
-        
+
         const decoded = jwt.verify(token, process.env.JWT_SECRET || " ");
-        return decoded;
+        if (!decoded) null;
+        const user = await User.findById(decoded.userId)
+        if (!user) return null;
+        const { password, ...safeUser } = user.toObject();
+        return safeUser;
     } catch (error) {
         console.log(error)
         return null;

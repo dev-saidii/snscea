@@ -4,6 +4,7 @@ import { Loader2, UploadCloud, X } from "lucide-react";
 import toast from "react-hot-toast";
 import { uploadImage } from "@/services/common";
 import Image from "next/image";
+import Swal from "sweetalert2";
 
 type PhotoUploadProps = {
     photo: string,
@@ -21,6 +22,11 @@ export default function PhotoUpload({
 
     const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
+        if (file.size > 500 * 1024) {
+            toast.error("File size must be under 500KB");
+            return;
+        }
+
         if (file) {
             setLoading(true);
             try {
@@ -28,10 +34,20 @@ export default function PhotoUpload({
                 setPhoto(uploadedUrl || "");
                 toast.success("Photo Uploaded")
             } catch (err) {
+                if (err.response.status === 403) {
+                    Swal.fire({
+                        title: 'Access Denied',
+                        text: 'You do not have permission to access this resource.',
+                        icon: 'warning',
+                    });
+                    return;
+                }
                 console.log(err)
                 toast.error("Photo not uploaded")
+            }finally{
+
+                setLoading(false);
             }
-            setLoading(false);
 
         }
     };

@@ -61,7 +61,7 @@ const StudentFilter = ({ filters, setFilters, onSearch, isSearching }: Props) =>
                         value={filters?.session}
                         onChange={handleChange}
                     >
-                        <option value="">All</option>
+                        <option value="">Select Session</option>
                         {sessions.map((session) => (
                             <option key={session} value={session}>{session}</option>
                         ))}
@@ -77,7 +77,7 @@ const StudentFilter = ({ filters, setFilters, onSearch, isSearching }: Props) =>
                         value={filters?.currentClass}
                         onChange={handleChange}
                     >
-                        <option value="">All</option>
+                        <option value="">Select Class</option>
                         {classes.map((cls) => (
                             <option key={cls} value={cls}>{cls}</option>
                         ))}
@@ -93,7 +93,7 @@ const StudentFilter = ({ filters, setFilters, onSearch, isSearching }: Props) =>
                         value={filters?.section}
                         onChange={handleChange}
                     >
-                        <option value="">All</option>
+                        <option value="">Select Section</option>
                         {sections.map((sec) => (
                             <option key={sec} value={sec}>{sec}</option>
                         ))}
@@ -111,7 +111,7 @@ const StudentFilter = ({ filters, setFilters, onSearch, isSearching }: Props) =>
                         value={filters?.gender}
                         onChange={handleChange}
                     >
-                        <option value="">All</option>
+                        <option value="">Select Gender</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
                         <option value="Other">Other</option>

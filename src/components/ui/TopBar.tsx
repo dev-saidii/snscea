@@ -3,6 +3,7 @@ import { Moon, Sun, LogOut, User, KeyRound } from "lucide-react";
 import Image from "next/image";
 import { useTheme } from "next-themes";
 import { logout } from "@/services/auth";
+import Swal from "sweetalert2";
 
 const TopBar = ({ userName }: { userName: string }) => {
     const { theme, setTheme } = useTheme();
@@ -10,6 +11,23 @@ const TopBar = ({ userName }: { userName: string }) => {
     const toggleDarkMode = () => {
         setTheme(theme === "dark" ? "light" : "dark");
     };
+
+    const handleLogout = async () => {
+        const result = await Swal.fire({
+            title: 'Are you sure?',
+            text: 'You will be logged out!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Yes, logout!',
+            reverseButtons: true,
+        });
+
+        if (result.isConfirmed) {
+            await logout();
+        }
+    }
 
     return (
         <header className="w-full h-16 bg-[#205D80] dark:bg-[#001c64] text-white px-4 py-3 flex items-center justify-between shadow-lg transition-colors z-50">
@@ -60,7 +78,7 @@ const TopBar = ({ userName }: { userName: string }) => {
                 {/* Logout */}
                 <button
                     className="flex items-center cursor-pointer gap-1 text-sm font-medium hover:underline hover:text-red-200 transition-colors"
-                    onClick={logout}
+                    onClick={handleLogout}
                 >
                     <LogOut size={18} className="inline-block" />
                     Logout

@@ -1,10 +1,16 @@
 import { connectDB } from "@/lib/db";
+import { authenticateModuleAccess } from "@/middlewares/moduleAuth";
 import Admission from "@/models/admission.model";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function DELETE(req: Request) {
+export async function DELETE(req: NextRequest) {
   try {
     await connectDB();
+    const access = await authenticateModuleAccess(req, 'student');
+    if (!access) return NextResponse.json(
+      { success: false, errors: "Not Allowed" },
+      { status: 403 }
+    );
 
     const { ids } = await req.json();
 

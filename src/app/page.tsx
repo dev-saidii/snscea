@@ -28,7 +28,7 @@ export default function Home() {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <main className="relative min-h-screen bg-gradient-to-br pb-20 from-blue-50 via-green-50 to-blue-100 text-blue-800 overflow-hidden">
+    <main className="relative min-h-screen bg-gradient-to-br from-blue-50 via-green-50 to-blue-100 text-blue-800 overflow-hidden">
       {/* Hero Section */}
       <motion.section
         style={{ opacity }}

@@ -1,5 +1,5 @@
 import { Student } from "@/types/type";
-import { Eye, Edit, Trash2, Printer } from "lucide-react";
+import { Eye, Edit, Trash2, Printer, IdCard } from "lucide-react";
 import Image from "next/image";
 
 
@@ -56,7 +56,7 @@ export default function StudentList({
                                 className="accent-blue-600 cursor-pointer"
                             />
                         </th>
-                        <th className="p-3 font-semibold text-gray-700 dark:text-gray-100">#</th>
+                        <th className="p-3 font-semibold text-gray-700 dark:text-gray-100">Adm No</th>
                         <th className="p-3 font-semibold text-gray-700 dark:text-gray-100">Photo</th>
                         <th className="p-3 font-semibold text-gray-700 dark:text-gray-100">Name</th>
                         <th className="p-3 font-semibold text-gray-700 dark:text-gray-100">Class</th>
@@ -91,7 +91,7 @@ export default function StudentList({
                                         alt="avtar"
                                         width={36}
                                         height={36}
-                                        className="rounded-full object-cover border border-blue-200"
+                                        className="rounded-full h-10 w-16 object-cover border border-blue-200"
                                     />
                                 ) : (
                                     <span
@@ -157,7 +157,7 @@ export default function StudentList({
                                                 title="Print ID Card"
                                                 onClick={() => onPrintId?.(s)}
                                             >
-                                                <Printer size={18} />
+                                                <IdCard size={18} />
                                             </button>
                                         </div>
 

@@ -3,24 +3,16 @@ import bcrypt from 'bcryptjs';
 import { connectDB } from '@/lib/db';
 import User from '@/models/user.model';
 import { authenticate } from '@/middlewares/moduleAuth';
-type Token = {
-    userId: string,
-    email: 'admin@gmail.com',
-    name: 'Satish Kumar Maurya',
-    access: ['student', 'account', 'marksheet', 'setting'],
-    employeeNumber: 'EM2504',
-    iat: 1747394370,
-    exp: 1747480770
-}
+
 
 export async function POST(req: NextRequest) {
     try {
         await connectDB();
 
-        const token = authenticate(req) as Token;
-        console.log(token)
-        if (!token || !token?.userId) {
-            return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 });
+        const isLogin = await authenticate(req);
+
+        if (!isLogin) {
+            return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 403 });
         }
 
         const { oldPassword, newPassword } = await req.json();

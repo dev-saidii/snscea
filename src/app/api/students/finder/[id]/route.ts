@@ -5,8 +5,11 @@ import { authenticateModuleAccess } from '@/middlewares/moduleAuth';
 
 export async function GET(req: NextRequest, { params }) {
     await connectDB();
-     const result = authenticateModuleAccess(req, 'student');
-            if (result instanceof Response) return result;
+    const access = await authenticateModuleAccess(req, 'marksheet');
+    if (!access) return NextResponse.json(
+        { success: false, errors: "Not Allowed" },
+        { status: 403 }
+    );
     try {
         const { id } = params;
         const student = await Admission.findOne({ admissionNumber: id });

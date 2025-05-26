@@ -27,6 +27,9 @@ export default function AdmissionForm() {
     // Parent
     const [fatherName, setFatherName] = useState('');
     const [motherName, setMotherName] = useState('');
+    const [motherAadhaar, setMotherAadhaar] = useState('');
+    const [fatherAadhaar, setFatherAadhaar] = useState('');
+
     // Academic
     const [admissionNumber, setAdmissionNumber] = useState('');
     const [penNumber, setPenNumber] = useState('');
@@ -54,6 +57,8 @@ export default function AdmissionForm() {
         setPhoto('');
         setFatherName('');
         setMotherName('');
+        setFatherAadhaar('');
+        setMotherAadhaar('');
         setAdmissionNumber('');
         setPenNumber('');
         setCurrentClass('');
@@ -88,6 +93,8 @@ export default function AdmissionForm() {
             aadhaarNumber,
             fatherName,
             motherName,
+            fatherAadhaar,
+            motherAadhaar,
             address,
             admissionNumber,
             penNumber,
@@ -107,7 +114,6 @@ export default function AdmissionForm() {
         try {
             setLoading(true);
             const res = await studentAdmission(formData);
-            resetForm();
 
             if (res.success) {
                 Swal.fire({
@@ -124,7 +130,7 @@ export default function AdmissionForm() {
                         await handlePrint(res.admission);
                     }
                 });
-                // Optionally, reset form fields here
+                resetForm();
             } else {
                 Swal.fire({
                     title: 'Admission Failed',
@@ -133,6 +139,14 @@ export default function AdmissionForm() {
                 });
             }
         } catch (error) {
+            if (error.response.status === 403) {
+                Swal.fire({
+                    title: 'Access Denied',
+                    text: 'You do not have permission to access this resource.',
+                    icon: 'warning',
+                });
+                return;
+            }
             console.log(error)
             Swal.fire({
                 title: 'Server Error',
@@ -174,6 +188,10 @@ export default function AdmissionForm() {
                 motherName={motherName}
                 setFatherName={setFatherName}
                 setMotherName={setMotherName}
+                fatherAadhaar={fatherAadhaar}
+                motherAadhaar={motherAadhaar}
+                setFatherAadhaar={setFatherAadhaar}
+                setMotherAadhaar={setMotherAadhaar}
             />
             <AcademicDetails
                 admissionNumber={admissionNumber}

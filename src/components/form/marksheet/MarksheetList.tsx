@@ -30,6 +30,7 @@ export default function MarksheetList({
                         <th className="p-3 font-semibold text-gray-700 dark:text-gray-100">#</th>
                         <th className="p-3 font-semibold text-gray-700 dark:text-gray-100">Name</th>
                         <th className="p-3 font-semibold text-gray-700 dark:text-gray-100">Class</th>
+                        <th className="p-3 font-semibold text-gray-700 dark:text-gray-100">Section</th>
                         <th className="p-3 font-semibold text-gray-700 dark:text-gray-100">Gender</th>
                         <th className="p-3 font-semibold text-gray-700 dark:text-gray-100">Father</th>
                         <th className="p-3 font-semibold text-gray-700 dark:text-gray-100">Session</th>
@@ -37,7 +38,6 @@ export default function MarksheetList({
                         <th className="p-3 font-semibold text-gray-700 dark:text-gray-100">Max Marks</th>
                         <th className="p-3 font-semibold text-gray-700 dark:text-gray-100">Obtained Marks</th>
                         <th className="p-3 font-semibold text-gray-700 dark:text-gray-100">Grade</th>
-
 
                         <th className="p-3 font-semibold text-gray-700 dark:text-gray-100">Action</th>
                     </tr>
@@ -50,9 +50,9 @@ export default function MarksheetList({
                                 }`}
                         >
                             <td className="p-3 font-mono text-blue-600">{s.admissionNumber}</td>
-
                             <td className="p-3 max-w-[140px] truncate">{s.name}</td>
-                            <td className="p-3">{s.currentClass}({s.section})</td>
+                            <td className="p-3">{s.currentClass}</td>
+                            <td className="p-3">{s.section}</td>
                             <td className="p-3">{s.gender}</td>
                             <td className="p-3 max-w-[120px] truncate" title={s.fatherName}>
                                 {s.fatherName}

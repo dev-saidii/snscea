@@ -5,9 +5,12 @@ import { authenticateModuleAccess } from '@/middlewares/moduleAuth';
 
 export async function GET(req: NextRequest, { params }) {
     await connectDB();
-    const result = authenticateModuleAccess(req, 'student');
-    if (result instanceof Response) return result;
-    const {id} = params
+    const access = await authenticateModuleAccess(req, 'student');
+    if (!access) return NextResponse.json(
+        { success: false, errors: "Not Allowed" },
+        { status: 403 }
+    );
+    const { id } = params
     try {
         const student = await Admission.findById(id);
         if (!student) {
@@ -22,9 +25,12 @@ export async function GET(req: NextRequest, { params }) {
 
 export async function PUT(req: NextRequest, { params }) {
     await connectDB();
-    const result = authenticateModuleAccess(req, 'student');
-    if (result instanceof Response) return result;
-    const {id} = params
+    const access = await authenticateModuleAccess(req, 'student');
+    if (!access) return NextResponse.json(
+        { success: false, errors: "Not Allowed" },
+        { status: 403 }
+    );
+    const { id } = params
     try {
         const data = await req.json();
         const updatedStudent = await Admission.findByIdAndUpdate(id, data, {

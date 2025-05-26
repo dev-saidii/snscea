@@ -50,6 +50,12 @@ export async function getAdmissionConfirmationHTML(admission) {
         <td style="padding:10px 8px;font-weight:600;">Mother's Name</td>
         <td style="padding:10px 8px;">${admission.motherName || '-'}</td>
       </tr>
+      <tr>
+        <td style="padding:10px 8px;font-weight:600;width:30%;">Father's Aadhaar</td>
+        <td style="padding:10px 8px;">${admission.fatherAadhaar || '-'}</td>
+        <td style="padding:10px 8px;font-weight:600;">Mother's Aadhaar</td>
+        <td style="padding:10px 8px;">${admission.motherAadhaar || '-'}</td>
+      </tr>
     </table>
 
     <!-- Academic Details -->

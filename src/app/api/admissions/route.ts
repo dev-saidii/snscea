@@ -1,17 +1,22 @@
 import { connectDB } from '@/lib/db';
 import { generateAdmissionNumber } from '@/lib/idGenerator';
+import { sendEmail } from '@/lib/sendEmail';
 import { authenticateModuleAccess } from '@/middlewares/moduleAuth';
 import Admission from '@/models/admission.model';
+import { getAdmissionConfirmationHTML } from '@/utils/html/getAdmissionConfirmationHTML';
 import { AdmissionSchema } from '@/validations/admission';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
   try {
     await connectDB();
-    const result = authenticateModuleAccess(req, 'student');
-    if (result instanceof Response) return result;
-    const body = await req.json();
+    const access = await authenticateModuleAccess(req, 'student');
+    if (!access) return NextResponse.json(
+      { success: false, errors: "Not Allowed" },
+      { status: 403 }
+    );
 
+    const body = await req.json();
     const parsed = AdmissionSchema.parse(body);
 
     if (!parsed) {
@@ -20,7 +25,7 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-    const idNo = await generateAdmissionNumber();
+    const idNo = await generateAdmissionNumber(parsed.session);
     parsed.admissionNumber = idNo;
 
     const admission = await Admission.create(parsed);

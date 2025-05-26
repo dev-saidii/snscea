@@ -10,8 +10,11 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(req: NextRequest) {
     try {
         await connectDB();
-        const result = authenticateModuleAccess(req, 'marksheet');
-        if (result instanceof Response) return result;
+        const access = await authenticateModuleAccess(req, 'marksheet');
+        if (!access) return NextResponse.json(
+            { success: false, errors: "Not Allowed" },
+            { status: 403 }
+        );
 
         const data = await req.json();
 
@@ -72,9 +75,11 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
     try {
         await connectDB();
-        const result = authenticateModuleAccess(req, 'marksheet');
-        if (result instanceof Response) return result;
-
+        const access = await authenticateModuleAccess(req, 'marksheet');
+        if (!access) return NextResponse.json(
+            { success: false, errors: "Not Allowed" },
+            { status: 403 }
+        );
         const { searchParams } = new URL(req.url);
 
         const search = searchParams.get('search') || '';
