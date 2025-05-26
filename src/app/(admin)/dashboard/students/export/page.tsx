@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { utils as XLSXUtils, writeFile } from 'xlsx';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import Papa from 'papaparse';
+// import Papa from 'papaparse';
 import { ExportFilter } from '@/components/form/student/ExportFilter';
 import { getCurrentSession } from '@/utils/helpher';
 import { getExportableStudents } from '@/services/student';
@@ -61,16 +61,16 @@ export default function ExportPage() {
         writeFile(workbook, `Session_${filters.session}_Class-${filters.currentClass || "All"}_students.xlsx`);
     };
 
-    const exportToCSV = () => {
-        const csv = Papa.unparse(data);
-        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.setAttribute('download', `Session_${filters.session}_Class-${filters.currentClass || "All"}_students.csv`);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    };
+    // const exportToCSV = () => {
+    //     const csv = Papa.unparse(data);
+    //     const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    //     const link = document.createElement('a');
+    //     link.href = URL.createObjectURL(blob);
+    //     link.setAttribute('download', `Session_${filters.session}_Class-${filters.currentClass || "All"}_students.csv`);
+    //     document.body.appendChild(link);
+    //     link.click();
+    //     document.body.removeChild(link);
+    // };
 
     const exportToPDF = () => {
         const doc = new jsPDF();

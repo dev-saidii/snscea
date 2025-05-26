@@ -4,7 +4,7 @@ import React from 'react';
 
 
 const StudentProfile: React.FC<{ student: Student }> = ({ student }) => {
-    const formatDate = (dateString: string) => {
+    const formatDate = (dateString: Date) => {
         const date = new Date(dateString);
         return new Intl.DateTimeFormat('en-IN').format(date);
     };
@@ -16,6 +16,8 @@ const StudentProfile: React.FC<{ student: Student }> = ({ student }) => {
                 <div className="bg-blue-300 p-6 flex items-center">
                     <Image
                         src={student.photo}
+                        width={128}
+                        height={128}
                         alt="Student Photo"
                         className="w-32 h-32 rounded-full border-4 border-white"
                     />
@@ -55,6 +57,8 @@ const StudentProfile: React.FC<{ student: Student }> = ({ student }) => {
                             <DetailItem label="Mobile" value={student.mobile} />
                             <DetailItem label="Father's Name" value={student.fatherName} />
                             <DetailItem label="Mother's Name" value={student.motherName} />
+                            <DetailItem label="Father's Aadhaar" value={student.fatherAadhaar} />
+                            <DetailItem label="Mother's Aadhaar" value={student.motherAadhaar} />
                         </div>
                     </div>
 

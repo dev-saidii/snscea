@@ -1,5 +1,5 @@
 import { Student } from "@/types/type";
-import { Eye, Edit, Trash2, Printer, IdCard } from "lucide-react";
+import { Eye, Edit, Trash2, IdCard } from "lucide-react";
 import Image from "next/image";
 
 

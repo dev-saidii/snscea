@@ -19,7 +19,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             localStorage.setItem("saidii-user", JSON.stringify(res.user));
             setUserName(res.user.name.split(" ")[0]);
             setLoading(false);
-        } catch (err: any) {
+        } catch (err) {
             // Handle 401 or 403 specifically
             if (err.response?.status === 401 || err.response?.status === 403) {
                 router.replace("/login");

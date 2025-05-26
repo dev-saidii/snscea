@@ -1,9 +1,7 @@
 import { connectDB } from '@/lib/db';
 import { generateAdmissionNumber } from '@/lib/idGenerator';
-import { sendEmail } from '@/lib/sendEmail';
 import { authenticateModuleAccess } from '@/middlewares/moduleAuth';
 import Admission from '@/models/admission.model';
-import { getAdmissionConfirmationHTML } from '@/utils/html/getAdmissionConfirmationHTML';
 import { AdmissionSchema } from '@/validations/admission';
 import { NextRequest, NextResponse } from 'next/server';
 

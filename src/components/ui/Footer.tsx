@@ -45,7 +45,7 @@ const Footer = () => {
                         whileHover={{ scale: 1.05 }}
                         className="flex items-center gap-3 group"
                     >
-                        <a href="/">
+                        <Link href="/">
                             <Image
                                 src="/logo.png"
                                 alt="School Logo"
@@ -53,7 +53,7 @@ const Footer = () => {
                                 height={150}
                                 className="rounded-2xl transition-transform duration-300 group-hover:rotate-12"
                             />
-                        </a>
+                        </Link>
 
                         {/* <span className="text-xl font-bold leading-snug bg-gradient-to-r from-blue-400 to-white bg-clip-text text-transparent">
                             Sri Netaji Subhash Chandra Educational Academy

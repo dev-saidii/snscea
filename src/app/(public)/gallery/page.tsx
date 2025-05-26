@@ -77,6 +77,7 @@ const Gallery = () => {
                         >
                             <div className="relative h-56 sm:h-64">
                                 <Image
+                               
                                     src={img.src}
                                     alt={img.alt}
                                     fill

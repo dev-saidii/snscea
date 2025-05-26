@@ -56,11 +56,11 @@ const Header = () => {
                             </Link>
                         );
                     })}
-                    <Link href="/login">
+                    {/* <Link href="/login">
                         <button className="cursor-pointer ml-2 bg-blue-600 text-white px-4 py-2 rounded-xl font-semibold shadow hover:bg-blue-700 transition duration-200">
                             Login
                         </button>
-                    </Link>
+                    </Link> */}
                 </nav>
 
                 {/* Mobile Hamburger */}
@@ -95,11 +95,11 @@ const Header = () => {
                             </Link>
                         );
                     })}
-                    <Link href="/login" onClick={() => setMenuOpen(false)}>
+                    {/* <Link href="/login" onClick={() => setMenuOpen(false)}>
                         <button className="mt-2 cursor-pointer bg-blue-600 text-white w-full py-2 rounded-xl font-semibold shadow hover:bg-blue-700 transition duration-200">
                             Login
                         </button>
-                    </Link>
+                    </Link> */}
                 </nav>
             </div>
         </header>

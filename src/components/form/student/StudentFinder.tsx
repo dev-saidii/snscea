@@ -119,7 +119,7 @@ export default function StudentFinder({ onStudentFound }: Props) {
                     <div className="w-28 h-28 rounded-lg border dark:border-gray-600 overflow-hidden 
                                    bg-gray-100 dark:bg-gray-700 flex items-center justify-center shrink-0">
                         {foundStudent.photo ? (
-                            <Image src={foundStudent.photo} alt="Preview" width={35} height={35}/>
+                            <Image src={foundStudent.photo} alt="Preview" width={110} height={110}/>
 
                         ) : (
                             <span className="text-gray-400 text-xs text-center p-2">
