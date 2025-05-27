@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import LayoutWrapper from "@/components/LayoutWrapper";
+import { ThemeProvider } from "next-themes";
 
 export const metadata: Metadata = {
   title: `${process.env.NEXT_PUBLIC_INSTITUTE_NAME}`,
   description: `Official website of ${process.env.NEXT_PUBLIC_INSTITUTE_NAME}, Designed, Developed and maintained by ${process.env.NEXT_PUBLIC_DEVELOPMENT_INSTITUTE_NAME}`,
-  keywords: ["Institute", "Education", "school", "sant kabir nagar, santha"],
+  keywords: ["sri neta ji subhash chandra education academy", "snscea", "Parsiya, Kharwaniya", "cbse", "Institute", "primary school", "Education", "school", "sant kabir nagar, santha",],
   viewport: "width=device-width, initial-scale=1",
   openGraph: {
     title: `${process.env.NEXT_PUBLIC_INSTITUTE_NAME}`,
@@ -35,7 +36,9 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className="bg-white text-black dark:bg-[#121212] dark:text-white">
         <main role="main">
-          <LayoutWrapper>{children}</LayoutWrapper>
+          <ThemeProvider attribute="class">
+            <LayoutWrapper>{children}</LayoutWrapper>
+          </ThemeProvider>
         </main>
         <Toaster />
       </body>
