@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   viewport: "width=device-width, initial-scale=1",
   openGraph: {
     title: `${process.env.NEXT_PUBLIC_INSTITUTE_NAME}`,
-    description: `Developed by ${process.env.NEXT_PUBLIC_DEVELOPMENT_INSTITUTE_NAME}`,
+    description: `Developed by ${process.env.NEXT_PUBLIC_COMPANY_NAME}`,
     url: `${process.env.NEXT_PUBLIC_INSTITUTE_URL}`,
     siteName: `${process.env.NEXT_PUBLIC_INSTITUTE_NAME}`,
     images: [
@@ -34,6 +34,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <meta name="google-site-verification" content="NzlkVWzCaGnJqI5xKXlbGvIIOc3n60jyF1I2RrOVX7c" />
       <body className="bg-white text-black dark:bg-[#121212] dark:text-white">
         <main role="main">
           <ThemeProvider attribute="class">
