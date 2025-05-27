@@ -14,9 +14,8 @@ export async function POST(req: NextRequest) {
         if (!isLogin) {
             return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 403 });
         }
-
         const { oldPassword, newPassword } = await req.json();
-        const user = await User.findById(token.userId);
+        const user = await User.findById(isLogin._id);
         if (!user) {
             return NextResponse.json({ success: false, message: 'User not found' }, { status: 404 });
         }

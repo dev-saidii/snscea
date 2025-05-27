@@ -22,8 +22,8 @@ export default function PhotoUpload({
 
     const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
-        if (file.size > 500 * 1024) {
-            toast.error("File size must be under 500KB");
+        if (file.size > 100 * 1024) {
+            toast.error("File size must be under 100KB");
             return;
         }
 

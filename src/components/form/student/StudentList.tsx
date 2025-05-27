@@ -89,9 +89,9 @@ export default function StudentList({
                                     <Image
                                         src={s.photo}
                                         alt="avtar"
-                                        width={36}
-                                        height={36}
-                                        className="rounded-full h-10 w-16 object-cover border border-blue-200"
+                                        width={40}
+                                        height={40}
+                                        className="rounded-full h-10 w-10 object-cover border border-blue-200"
                                     />
                                 ) : (
                                     <span

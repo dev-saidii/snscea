@@ -16,11 +16,11 @@ export async function POST(req: NextRequest) {
     try {
         await connectDB();
         const data = await req.json();
-        const access = await authenticateModuleAccess(req, 'setting');
-        if (!access) return NextResponse.json(
-            { success: false, errors: "Not Allowed" },
-            { status: 403 }
-        );
+        // const access = await authenticateModuleAccess(req, 'setting');
+        // if (!access) return NextResponse.json(
+        //     { success: false, errors: "Not Allowed" },
+        //     { status: 403 }
+        // );
 
         // Validate role
         if (!roleAccessMap[data.role]) {

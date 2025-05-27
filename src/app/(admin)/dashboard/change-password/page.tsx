@@ -32,7 +32,7 @@ export default function ChangePasswordPage() {
             const res = await changePassword(pass);
 
             if (!res.success) {
-                Swal.fire("Error", "Wrong current Password", "error");
+                Swal.fire("Error", "Enter current password not matched", "error");
             } else {
                 Swal.fire("Success", "Password changed successfully!", "success");
                 setCurrentPassword("");
@@ -44,7 +44,7 @@ export default function ChangePasswordPage() {
             const axiosError = error as AxiosError;
             console.error("Password Change Error:", axiosError);
             if (axiosError.response?.status === 400) {
-                return Swal.fire("Error", "Wrong current Password", "error");
+                return Swal.fire("Error", "Enter current password not matched", "error");
             }
             Swal.fire("Error", "Internal error. Try again later.", "error");
         } finally {
