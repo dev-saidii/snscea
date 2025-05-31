@@ -152,7 +152,7 @@ export default function EventsNewsPage() {
                                     </>
                                 )}
                             </div>
-                            <h3 className="text-xl font-bold mb-1">{item.title}</h3>
+                            <h3 className="text-xl text-gray-700 font-bold mb-1">{item.title}</h3>
                             <div className="text-gray-700 mb-2 flex-1">{item.description}</div>
                             {item.location && (
                                 <div className="text-sm text-gray-500 mb-2">
@@ -161,6 +161,8 @@ export default function EventsNewsPage() {
                             )}
                             {item.image && (
                                 <Image
+                                    width={30}
+                                    height={128}
                                     src={item.image}
                                     alt={item.title}
                                     className="rounded-xl mt-2 object-cover h-32 w-full"

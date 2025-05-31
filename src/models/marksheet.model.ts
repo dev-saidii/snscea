@@ -42,5 +42,8 @@ const marksheetSchema = new mongoose.Schema({
     issueDate: { type: Date, default: Date.now },
 }, { timestamps: true });
 
+// Auto-delete after 2 years
+marksheetSchema.index({ issueDate: 1 }, { expireAfterSeconds: 60 * 60 * 24 * 365 * 2 });
+
 export default mongoose.models.Marksheet ||
     mongoose.model("Marksheet", marksheetSchema);

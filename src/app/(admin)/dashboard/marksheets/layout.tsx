@@ -4,120 +4,135 @@ import React from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { usePathname, useRouter } from "next/navigation";
-import {
-    ArrowLeft,
-    Home,
-    FilePlus,
-    ClipboardList
-} from "lucide-react";
+import { ArrowLeft, Home, FilePlus, ClipboardList } from "lucide-react";
 
 const navLinks = [
-    { label: "Add Marksheet", href: "/dashboard/marksheets/add", icon: FilePlus },
-    { label: "View All Marksheets", href: "/dashboard/marksheets/list", icon: ClipboardList },
-    // { label: "Marksheet Templates", href: "/dashboard/marksheets/templates", icon: BookMarked },
+  { label: "Add Marksheet", href: "/dashboard/marksheets/add", icon: FilePlus },
+  { label: "View All Marksheets", href: "/dashboard/marksheets/list", icon: ClipboardList },
 ];
 
 const SIDEBAR_WIDTH = 256;
 const TOPBAR_HEIGHT = 64;
 
-const MarksheetsLayout = ({ children }: { children: React.ReactNode }) => {
-    const { theme } = useTheme();
-    const pathname = usePathname();
-    const router = useRouter();
+const MarksheetLayout = ({ children }: { children: React.ReactNode }) => {
+  const { theme } = useTheme();
+  const pathname = usePathname();
+  const router = useRouter();
 
-    return (
-        <div
-            className={`flex transition-colors duration-200 ${theme === "dark"
-                ? "bg-gradient-to-br from-[#101e2a] to-[#1a2d3b]"
-                : "bg-gradient-to-br from-[#eaf6fb] to-[#f6fbff]"
-                }`}
-            style={{ height: `calc(100vh - ${TOPBAR_HEIGHT}px)` }}
-        >
-            {/* Sidebar */}
-            <aside
-                className="hidden md:flex flex-col bg-gradient-to-br from-[#eaf6fb] to-[#f6fbff] dark:bg-[#1a2d3b] border-r border-gray-100 dark:border-[#22384a] shadow-lg py-8 px-4 z-30"
-                style={{
-                    width: SIDEBAR_WIDTH,
-                    position: "fixed",
-                    top: TOPBAR_HEIGHT,
-                    left: 0,
-                    height: `calc(100vh - ${TOPBAR_HEIGHT}px)`,
-                }}
-            >
-                <h2 className="text-2xl font-bold text-center text-[#205D80] dark:text-white mb-8 tracking-tight">
-                    Marksheets
-                </h2>
-                <nav className="flex-1">
-                    <ul className="space-y-2">
-                        {navLinks.map((link) => {
-                            const active = pathname === link.href;
-                            return (
-                                <li key={link.href}>
-                                    <Link
-                                        href={link.href}
-                                        className={`flex items-center gap-3 px-4 py-2 rounded-lg font-medium transition
-                      ${active
-                                                ? "bg-[#205D80] text-white shadow"
-                                                : "text-[#205D80] dark:text-white hover:bg-[#eaf6fb] dark:hover:bg-[#22384a]"
-                                            }
-                    `}
-                                    >
-                                        <link.icon size={20} />
-                                        {link.label}
-                                    </Link>
-                                </li>
-                            );
-                        })}
-                    </ul>
-                </nav>
-            </aside>
+  const isDark = theme === "dark";
 
-            {/* Content Area */}
-            <div
-                className="flex-1 flex flex-col relative"
-                style={{
-                    marginLeft: SIDEBAR_WIDTH,
-                    marginTop: TOPBAR_HEIGHT,
-                }}
-            >
-                {/* Back Button */}
-                <button
-                    onClick={() => router.back()}
-                    className="fixed z-40 cursor-pointer flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-[#22384a] text-[#205D80] dark:text-white shadow hover:bg-[#eaf6fb] dark:hover:bg-[#2a4660] transition"
-                    style={{
-                        top: TOPBAR_HEIGHT + 16,
-                        left: SIDEBAR_WIDTH + 24,
-                    }}
-                >
-                    <ArrowLeft size={18} />
-                    <span className="text-sm font-medium">Back</span>
-                </button>
+  return (
+    <div
+      className={`flex transition-colors duration-200 ${
+        isDark
+          ? "bg-gradient-to-br from-[#101e2a] to-[#1a2d3b]"
+          : "bg-gradient-to-br from-[#eaf6fb] to-[#f6fbff]"
+      }`}
+      style={{ height: `calc(100vh - ${TOPBAR_HEIGHT}px)` }}
+    >
+      {/* Sidebar */}
+      <aside
+        className={`hidden md:flex flex-col shadow-lg py-8 px-4 z-30 border-r transition-colors duration-300
+          ${isDark
+            ? "bg-[#1a2d3b] border-[#22384a]"
+            : "bg-gradient-to-br from-[#eaf6fb] to-[#f6fbff] border-gray-100"
+          }`}
+        style={{
+          width: SIDEBAR_WIDTH,
+          position: "fixed",
+          top: TOPBAR_HEIGHT,
+          left: 0,
+          height: `calc(100vh - ${TOPBAR_HEIGHT}px)`,
+        }}
+      >
+        <h2 className={`text-2xl font-bold text-center mb-8 tracking-tight ${isDark ? "text-white" : "text-[#205D80]"}`}>
+          Marksheets
+        </h2>
+        <nav className="flex-1">
+          <ul className="space-y-2">
+            {navLinks.map((link) => {
+              const active = pathname === link.href;
+              return (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className={`group flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all ${
+                      active
+                        ? "bg-[#205D80] text-white shadow-lg"
+                        : isDark
+                          ? "text-gray-300 hover:bg-[#22384a]"
+                          : "text-[#205D80] hover:bg-[#eaf6fb]"
+                    }`}
+                  >
+                    <link.icon
+                      size={22}
+                      className={`group-hover:scale-110 transition-transform ${
+                        active
+                          ? "text-white"
+                          : isDark
+                            ? "text-gray-400"
+                            : "text-[#205D80]"
+                      }`}
+                      strokeWidth={active ? 2 : 1.5}
+                    />
+                    <span className="text-sm">{link.label}</span>
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+      </aside>
 
-                {/* Home Button */}
-                <button
-                    onClick={() => router.push("/dashboard")}
-                    className="fixed z-40 cursor-pointer flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-[#22384a] text-[#205D80] dark:text-white shadow hover:bg-[#eaf6fb] dark:hover:bg-[#2a4660] transition"
-                    style={{
-                        top: TOPBAR_HEIGHT + 16,
-                        right: 24,
-                    }}
-                >
-                    <Home size={18} /> <span>Dashboard</span>
-                </button>
+      {/* Main Content Area */}
+      <div
+        className="flex-1 flex flex-col relative"
+        style={{
+          marginLeft: SIDEBAR_WIDTH,
+          marginTop: 0,
+        }}
+      >
+        {/* Top Controls */}
+        <div className="fixed z-40 flex py-3 justify-between w-[calc(100%-256px)]">
+          <button
+            onClick={() => router.back()}
+            className={`flex cursor-pointer items-center gap-2 px-4 py-2 ml-6 rounded-full shadow-lg transition-transform hover:scale-105 ${
+              isDark
+                ? "bg-[#22384a] text-white hover:bg-[#2a4660]"
+                : "bg-white text-[#205D80] hover:bg-[#eaf6fb]"
+            }`}
+          >
+            <ArrowLeft size={18} />
+            <span className="text-sm font-medium">Back</span>
+          </button>
 
-                {/* Scrollable Content */}
-                <div
-                    className="overflow-y-auto no-scrollbar px-4 md:px-8"
-                    style={{
-                        height: `calc(100vh - ${TOPBAR_HEIGHT}px)`,
-                        paddingBottom: 32,
-                    }}
-                >
-                    {children}
-                </div>
-            </div>
+          <button
+            onClick={() => router.push("/dashboard")}
+            className={`flex cursor-pointer items-center gap-2 px-4 py-2 mr-6 rounded-full shadow-lg transition-transform hover:scale-105 ${
+              isDark
+                ? "bg-[#22384a] text-white hover:bg-[#2a4660]"
+                : "bg-white text-[#205D80] hover:bg-[#eaf6fb]"
+            }`}
+          >
+            <Home size={18} />
+            <span className="text-sm font-medium">Dashboard</span>
+          </button>
         </div>
-    );
+
+        {/* Scrollable Content */}
+        <div
+          className="overflow-y-auto no-scrollbar px-4 md:px-8"
+          style={{
+            height: `calc(100vh - ${TOPBAR_HEIGHT}px)`,
+            paddingBottom: 32,
+            marginTop: TOPBAR_HEIGHT,
+          }}
+        >
+          {children}
+        </div>
+      </div>
+    </div>
+  );
 };
 
-export default MarksheetsLayout;
+export default MarksheetLayout;

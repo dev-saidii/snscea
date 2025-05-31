@@ -37,7 +37,7 @@ export default function RootLayout({
       <meta name="google-site-verification" content="NzlkVWzCaGnJqI5xKXlbGvIIOc3n60jyF1I2RrOVX7c" />
       <body className="bg-white text-black dark:bg-[#121212] dark:text-white">
         <main role="main">
-          <ThemeProvider attribute="class">
+          <ThemeProvider attribute="class" defaultTheme="light" enableSystem={false}>
             <LayoutWrapper>{children}</LayoutWrapper>
           </ThemeProvider>
         </main>

@@ -74,7 +74,7 @@ export default function AcademicsPage() {
             >
               <div>{item.icon}</div>
               <div>
-                <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
+                <h3 className="text-xl text-gray-700 font-semibold mb-2">{item.title}</h3>
                 <p className="text-gray-600">{item.desc}</p>
               </div>
             </motion.div>
@@ -104,7 +104,7 @@ export default function AcademicsPage() {
         <h2 className="text-3xl font-bold text-center mb-8 bg-gradient-to-r from-blue-700 to-purple-700 bg-clip-text text-transparent">
           Academic Resources
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid text-gray-600 grid-cols-1 md:grid-cols-2 gap-8">
           <div className="bg-white rounded-xl shadow p-6 flex items-center gap-4">
             <FileText size={32} className="text-indigo-600" />
             <div>

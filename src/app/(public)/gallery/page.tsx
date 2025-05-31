@@ -77,7 +77,6 @@ const Gallery = () => {
                         >
                             <div className="relative h-56 sm:h-64">
                                 <Image
-                               
                                     src={img.src}
                                     alt={img.alt}
                                     fill
@@ -112,7 +111,7 @@ const Gallery = () => {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9 }}
-                        className="relative bg-white/10 backdrop-blur-lg p-4 rounded-3xl shadow-2xl max-w-3xl w-full flex flex-col items-center"
+                        className="relative bg-white/10 pt-12 backdrop-blur-lg p-3 rounded-3xl shadow-2xl max-w-3xl w-full flex flex-col items-center"
                     >
                         <Image
                             src={lightbox.src}

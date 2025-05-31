@@ -89,7 +89,7 @@ export default function ContactUsPage() {
                     >
                         {info.icon}
                         <div>
-                            <h3 className="text-xl font-semibold mb-1">{info.title}</h3>
+                            <h3 className="text-xl font-semibold mb-1 text-gray-800">{info.title}</h3>
                             {info.content}
                         </div>
                     </motion.div>

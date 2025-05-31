@@ -118,8 +118,8 @@ export default function AdmissionPage() {
                         >
                             <div key={step.title} className="...">
                                 <div className="mb-4 flex justify-center">{step.icon}</div>
-                                <h3>{step.title}</h3>
-                                <p>{step.desc}</p>
+                                <h3 className="text-blue-700">{step.title}</h3>
+                                <p className="text-gray-500">{step.desc}</p>
                             </div>
                         </motion.div>
                     ))}
